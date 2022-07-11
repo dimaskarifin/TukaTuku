@@ -1,0 +1,86 @@
+import {
+  Adidas,
+  Adidas2,
+  Blkzip,
+  Blkzip2,
+  Hoodie,
+  Ziphoodie,
+} from '../../assets';
+export const dummyPesanan = [
+  {
+    id: 1,
+    tanggalPesanan: 'Jumat, 18 Maret 2022',
+    status: 'keranjang',
+    totalHarga: 135000,
+    berat: 1,
+    pesanan: [
+      {
+        id: 1,
+        product: {
+          id: 2,
+          name: 'Black Zip Hoodie',
+          gambar: [Blkzip, Blkzip2],
+          cathoodie: {
+            id: 2,
+            name: 'Zip Hoodie',
+            gambar: Ziphoodie,
+          },
+          harga: 135000,
+          berat: 0.25,
+          jenis: 'Original',
+          deskripsi: [
+            'Halfziphoodie las vegas kings  awdawdawd awdawdawdad awd awdawdawd.awda,da,wd,awd,a,wd,awd,awd,aw,da,wda,d,ad,aw,da,wawd',
+            'Size M oversize, Panjang 61cm, Lebar 64cm awdawdawdawdawdawdwaddddddddddddddddddwdawdawdawd',
+            'Harga belum termasuk ongkir awdawdawdawdawdawdawdawdd',
+            'Kondisi ada kotor ,tinggal dicuci kembali oawkdokawodkoawkdoawodoawkdoawkdawkoaokoawkdokawokdoawdoawodkoasodoasdokaoskdokaskoko',
+          ],
+          ukuran: ['XL', 'L'],
+          stok: 1,
+          ready: true,
+        },
+        jumlahPesan: 1,
+        totalHarga: 135000,
+        keterangan: null,
+        ukuran: 'L',
+      },
+    ],
+  },
+  {
+    id: 2,
+    tanggalPesanan: 'Minggu, 20 Maret 2022',
+    status: 'lunas',
+    totalHarga: 135000,
+    berat: 1,
+    pesanan: [
+      {
+        id: 1,
+        product: {
+          id: 1,
+          name: 'Adidas Hoodie',
+          gambar: [Adidas, Adidas2],
+          cathoodie: {
+            id: 1,
+            name: 'Hoodie',
+            gambar: Hoodie,
+          },
+          harga: 125000,
+          berat: 0.25,
+          jenis: 'Original',
+          deskripsi: [
+            'Halfziphoodie las vegas kings  awdawdawd awdawdawdad awd awdawdawd.awda,da,wd,awd,a,wd,awd,awd,aw,da,wda,d,ad,aw,da,wawd',
+            'Size M oversize, Panjang 61cm, Lebar 64cm awdawdawdawdawdawdwaddddddddddddddddddwdawdawdawd',
+            'Harga belum termasuk ongkir awdawdawdawdawdawdawdawdd',
+            'Kondisi ada kotor ,tinggal dicuci kembali oawkdokawodkoawkdoawodoawkdoawkdawkoaokoawkdokawokdoawdoawodkoasodoasdokaoskdokaskoko',
+          ],
+          ukuran: ['XL', 'L'],
+          stok: 1,
+          ready: true,
+        },
+        jumlahPesan: 1,
+        totalHarga: 125000,
+        keterangan: null,
+        ukuran: 'L',
+      },
+    ],
+  },
+];
