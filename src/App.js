@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 // In App.js in a new project
 
 import * as React from 'react';
