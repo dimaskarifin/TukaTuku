@@ -10,7 +10,7 @@ export default class Splash extends Component {
   }
   render() {
     return (
-      <View styles={styles.pages}>
+      <View style={styles.pages}>
         <Logo />
       </View>
     );
@@ -20,8 +20,7 @@ export default class Splash extends Component {
 const styles = StyleSheet.create({
   pages: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
+    alignItems: 'center',
   },
 });
