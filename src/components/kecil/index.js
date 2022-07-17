@@ -1,4 +1,4 @@
 import Button from './Button';
 import Jarak from './Jarak';
-
-export {Button, Jarak};
+import CardHoodie from './CardHoodie';
+export {Button, Jarak, CardHoodie};
