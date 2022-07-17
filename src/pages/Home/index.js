@@ -1,8 +1,19 @@
-import {Text, StyleSheet, View} from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  View,
+  ScrollView,
+  KeyboardAvoidingView,
+} from 'react-native';
 import React, {Component} from 'react';
-import {BannerSlider, HeaderComponent, ListCatHoodie} from '../../components';
+import {
+  BannerSlider,
+  HeaderComponent,
+  ListCatHoodie,
+  ListHoodie,
+} from '../../components';
 import {colors, fonts, responsiveHeight} from '../../utils';
-import {dummyCatHoodie} from '../../data';
+import {dummyCatHoodie, dummyHoodies} from '../../data';
 
 export default class Home extends Component {
   constructor(props) {
@@ -10,18 +21,30 @@ export default class Home extends Component {
 
     this.state = {
       catHoodie: dummyCatHoodie,
+      Hoodies: dummyHoodies,
     };
   }
   render() {
-    const {catHoodie} = this.state;
+    const {catHoodie, Hoodies} = this.state;
     return (
       <View style={styles.page}>
-        <HeaderComponent />
-        <BannerSlider />
-        <View style={styles.pilihCatHoodie}>
-          <Text style={styles.label}>Pilih Kategori Hoodie</Text>
-          <ListCatHoodie catHoodie={catHoodie} />
-        </View>
+        <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={-550}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <HeaderComponent />
+            <BannerSlider />
+            <View style={styles.pilihCatHoodie}>
+              <Text style={styles.label}>Pilih Kategori Hoodie</Text>
+              <ListCatHoodie catHoodie={catHoodie} />
+            </View>
+            <View style={styles.pilihHoodie}>
+              <Text style={styles.label}>
+                Pilih <Text style={styles.boldLabel}>Hoodie</Text> yang anda
+                inginkan
+              </Text>
+              <ListHoodie Hoodies={Hoodies} />
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </View>
     );
   }
@@ -32,12 +55,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
   },
+  pilihHoodie: {
+    marginHorizontal: responsiveHeight(30),
+    marginTop: responsiveHeight(20),
+  },
   pilihCatHoodie: {
     marginHorizontal: responsiveHeight(30),
     marginTop: responsiveHeight(20),
   },
   label: {
     fontFamily: fonts.primary.regular,
+    fontSize: 16,
+  },
+  boldLabel: {
+    fontFamily: fonts.primary.extraBold,
     fontSize: 16,
   },
 });

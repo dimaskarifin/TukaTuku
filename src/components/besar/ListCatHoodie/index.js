@@ -1,13 +1,13 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {CardHoodie} from '../../kecil';
+import {CardCatHoodie} from '../../kecil';
 import {responsiveHeight} from '../../../utils';
 
 const ListCatHoodie = ({catHoodie}) => {
   return (
     <View style={styles.container}>
       {catHoodie.map(catHoodies => {
-        return <CardHoodie catHoodies={catHoodies} key={catHoodies.id} />;
+        return <CardCatHoodie catHoodies={catHoodies} key={catHoodies.id} />;
       })}
     </View>
   );

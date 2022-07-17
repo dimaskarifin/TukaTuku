@@ -57,10 +57,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 8,
     paddingHorizontal: 30,
-    borderRadius: 5,
     backgroundColor: colors.primary,
-    marginBottom: 30,
-    marginHorizontal: 30,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -68,7 +65,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
     elevation: 5,
     justifyContent: 'space-between',
   },
