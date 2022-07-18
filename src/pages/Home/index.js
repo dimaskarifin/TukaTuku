@@ -44,6 +44,7 @@ export default class Home extends Component {
                 inginkan
               </Text>
               <ListHoodies Hoodies={Hoodies} />
+              <Jarak height={10} />
               <Button title="Lihat Semua" type="text" padding={7} />
             </View>
             <Jarak height={20} />
