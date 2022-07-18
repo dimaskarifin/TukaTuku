@@ -2,17 +2,21 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {IconCart} from '../../../assets';
 import {colors} from '../../../utils';
-import Jarak from '../Jarak';
+import TextOnly from './TextOnly';
 
-const Button = ({icon, totalKeranjang}) => {
+const Button = props => {
   const Icon = () => {
     if (icon === 'cart') {
       return <IconCart />;
     }
     return <IconCart />;
   };
+  const {icon, totalKeranjang, padding, type} = props;
+  if (type === 'text') {
+    return <TextOnly {...props} />;
+  }
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container(padding)}>
       <Icon />
       {totalKeranjang && (
         <View style={styles.notif}>
@@ -26,11 +30,11 @@ const Button = ({icon, totalKeranjang}) => {
 export default Button;
 
 const styles = StyleSheet.create({
-  container: {
+  container: padding => ({
     backgroundColor: colors.grey,
-    padding: 10,
+    padding: padding,
     borderRadius: 5,
-  },
+  }),
   notif: {
     position: 'absolute',
     top: 5,

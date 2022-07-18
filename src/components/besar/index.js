@@ -2,12 +2,12 @@ import BottomNavigator from './BottomNavigator';
 import HeaderComponent from './HeaderComponent';
 import BannerSlider from './BannerSlider';
 import ListCatHoodie from './ListCatHoodie';
-import ListHoodie from './ListHoodie';
+import ListHoodies from './ListHoodies';
 
 export {
   BottomNavigator,
   HeaderComponent,
   BannerSlider,
   ListCatHoodie,
-  ListHoodie,
+  ListHoodies,
 };

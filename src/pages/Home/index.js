@@ -8,9 +8,11 @@ import {
 import React, {Component} from 'react';
 import {
   BannerSlider,
+  Button,
   HeaderComponent,
+  Jarak,
   ListCatHoodie,
-  ListHoodie,
+  ListHoodies,
 } from '../../components';
 import {colors, fonts, responsiveHeight} from '../../utils';
 import {dummyCatHoodie, dummyHoodies} from '../../data';
@@ -41,8 +43,10 @@ export default class Home extends Component {
                 Pilih <Text style={styles.boldLabel}>Hoodie</Text> yang anda
                 inginkan
               </Text>
-              <ListHoodie Hoodies={Hoodies} />
+              <ListHoodies Hoodies={Hoodies} />
+              <Button title="Lihat Semua" type="text" padding={7} />
             </View>
+            <Jarak height={20} />
           </ScrollView>
         </KeyboardAvoidingView>
       </View>
@@ -66,9 +70,11 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: fonts.primary.regular,
     fontSize: 16,
+    color: colors.black,
   },
   boldLabel: {
     fontFamily: fonts.primary.extraBold,
     fontSize: 16,
+    color: colors.black,
   },
 });
