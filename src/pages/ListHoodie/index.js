@@ -15,6 +15,7 @@ import {
 } from '../../components';
 import {colors, fonts, responsiveHeight} from '../../utils';
 import {dummyCatHoodie, dummyHoodies} from '../../data';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 export default class ListHoodie extends Component {
   constructor(props) {
@@ -66,11 +67,11 @@ const styles = StyleSheet.create({
   },
   label: {
     fontFamily: fonts.primary.regular,
-    fontSize: 16,
+    fontSize: RFValue(16),
     color: colors.black,
   },
   boldLabel: {
     fontFamily: fonts.primary.extraBold,
-    fontSize: 16,
+    fontSize: RFValue(16),
   },
 });
