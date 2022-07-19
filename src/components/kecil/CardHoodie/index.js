@@ -8,17 +8,17 @@ import {
   responsiveWidth,
 } from '../../../utils';
 
-const CardHoodie = ({Hoodie}) => {
+const CardHoodie = ({Hoodie, navigation}) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.card}>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => navigation.navigate('HoodieDetail', {Hoodie})}>
         <Image source={Hoodie.gambar[0]} style={styles.gambar} />
-        <View>
-          <Text style={styles.text}>{Hoodie.name}</Text>
-          <Text style={styles.textHarga}>
-            Rp {numberWithCommas(Hoodie.harga)}
-          </Text>
-        </View>
+        <Text style={styles.text}>{Hoodie.name}</Text>
+        <Text style={styles.textHarga}>
+          Rp {numberWithCommas(Hoodie.harga)}
+        </Text>
       </TouchableOpacity>
     </View>
   );

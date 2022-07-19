@@ -1,6 +1,6 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {IconCart} from '../../../assets';
+import {IconBack, IconCart} from '../../../assets';
 import {colors} from '../../../utils';
 import TextOnly from './TextOnly';
 
@@ -8,15 +8,17 @@ const Button = props => {
   const Icon = () => {
     if (icon === 'cart') {
       return <IconCart />;
+    } else if (icon === 'arrow-left') {
+      return <IconBack />;
     }
     return <IconCart />;
   };
-  const {icon, totalKeranjang, padding, type} = props;
+  const {icon, totalKeranjang, padding, type, onPress} = props;
   if (type === 'text') {
     return <TextOnly {...props} />;
   }
   return (
-    <TouchableOpacity style={styles.container(padding)}>
+    <TouchableOpacity style={styles.container(padding)} onPress={onPress}>
       <Icon />
       {totalKeranjang && (
         <View style={styles.notif}>

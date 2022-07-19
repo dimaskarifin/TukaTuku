@@ -14,6 +14,7 @@
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/native-stack": "^6.7.0",
     "deprecated-react-native-prop-types": "^2.2.0",
+    "pagescrollview": "^2.2.0",
     "react": "18.0.0",
     "react-native": "0.69.1",
     "react-native-image-slider-box": "^2.0.1",

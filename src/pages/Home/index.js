@@ -29,6 +29,7 @@ export default class Home extends Component {
   }
   render() {
     const {catHoodie, Hoodies} = this.state;
+    const {navigation} = this.props;
     return (
       <View style={styles.page}>
         <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={-550}>
@@ -44,7 +45,7 @@ export default class Home extends Component {
                 Pilih <Text style={styles.boldLabel}>Hoodie</Text> yang anda
                 inginkan
               </Text>
-              <ListHoodies Hoodies={Hoodies} />
+              <ListHoodies Hoodies={Hoodies} navigation={navigation} />
               <Jarak height={10} />
               <Button title="Lihat Semua" type="text" padding={7} />
             </View>
