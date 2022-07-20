@@ -9,7 +9,14 @@ import {
   responsiveWidth,
 } from '../../utils';
 import {RFValue} from 'react-native-responsive-fontsize';
-import {Button, CardCatHoodie, Inputan, Pilihan} from '../../components';
+import {
+  Button,
+  CardCatHoodie,
+  HoodieSlider,
+  Inputan,
+  Jarak,
+  Pilihan,
+} from '../../components';
 import {PageScrollView} from 'pagescrollview';
 
 export default class HoodieDetail extends Component {
@@ -25,7 +32,7 @@ export default class HoodieDetail extends Component {
     const {navigation} = this.props;
     const {hoodie, images} = this.state;
     return (
-      <PageScrollView>
+      <View style={styles.page}>
         <View style={styles.button}>
           <Button
             icon="arrow-left"
@@ -33,43 +40,60 @@ export default class HoodieDetail extends Component {
             onPress={() => navigation.goBack()}
           />
         </View>
+        <HoodieSlider images={images} />
         <View style={styles.container}>
           <View style={styles.catHoodie}>
             <CardCatHoodie catHoodies={hoodie.cathoodie} />
           </View>
-          <View style={styles.desc}>
-            <Text style={styles.nama}>{hoodie.name}</Text>
-            <Text style={styles.harga}>
-              Rp {numberWithCommas(hoodie.harga)}
-            </Text>
-            <View style={styles.garis} />
-            <View style={styles.WrapperJenisBerat}>
-              <Text style={styles.labelJenisBerat}>Jenis: {hoodie.jenis}</Text>
-              <Text style={styles.labelJenisBerat}>Berat: {hoodie.berat}</Text>
-            </View>
-            <Text style={styles.ket}>Deskripsi Produk :</Text>
-            <View style={styles.kethoodie}>
-              <Text numberOfLines={100} style={styles.kethoodie}>
-                {hoodie.deskripsi} aowkdoawkdoakwdoawodkaowdkoawdawdoawkdo
+          <ScrollView>
+            <View style={styles.desc}>
+              <Text style={styles.nama}>{hoodie.name}</Text>
+              <Text style={styles.harga}>
+                Rp {numberWithCommas(hoodie.harga)}
               </Text>
-            </View>
-            <Text style={styles.stok}>Jumlah Stok : {hoodie.stok}</Text>
-            <View style={styles.wrapperInputan}>
-              <Pilihan
-                label="Pilih Ukuran"
-                width={responsiveWidth(120)}
-                height={responsiveHeight(35)}
+              <View style={styles.garis} />
+              <View style={styles.WrapperJenisBerat}>
+                <Text style={styles.labelJenisBerat}>
+                  Jenis: {hoodie.jenis}
+                </Text>
+                <Text style={styles.labelJenisBerat}>
+                  Berat: {hoodie.berat}
+                </Text>
+              </View>
+              <Text style={styles.ket}>Deskripsi Produk :</Text>
+              <View style={styles.kethoodie}>
+                <Text numberOfLines={100} style={styles.kethoodie}>
+                  {hoodie.deskripsi} aowkdoawkdoakwdoawodkaowdkoawdawdoawkdo
+                </Text>
+              </View>
+              <Text style={styles.stok}>Jumlah Stok : {hoodie.stok}</Text>
+              <View style={styles.wrapperInputan}>
+                <Pilihan
+                  label="Pilih Ukuran : "
+                  width={responsiveWidth(120)}
+                  height={responsiveHeight(35)}
+                  fontSize={RFValue(20, heightMobileUI)}
+                  datas={hoodie.ukuran}
+                />
+              </View>
+              <Inputan
+                label="Keterangan :"
+                textarea
                 fontSize={RFValue(20, heightMobileUI)}
               />
+              <Jarak height={20} />
+              <Button
+                title="Masuk Keranjang"
+                type="textIcon"
+                icon="cart-white"
+                padding={responsiveHeight(18)}
+                fontSize={18}
+              />
             </View>
-            <Inputan
-              label="Keterangan"
-              textarea
-              fontSize={RFValue(20, heightMobileUI)}
-            />
-          </View>
+            <Jarak height={30} />
+          </ScrollView>
         </View>
-      </PageScrollView>
+      </View>
     );
   }
 }
@@ -82,7 +106,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     bottom: 0,
-    height: responsiveHeight(490),
+    height: responsiveHeight(550),
     width: '100%',
     backgroundColor: colors.white,
     borderTopLeftRadius: 40,

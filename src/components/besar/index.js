@@ -4,6 +4,7 @@ import BannerSlider from './BannerSlider';
 import ListCatHoodie from './ListCatHoodie';
 import ListHoodies from './ListHoodies';
 import ListMenu from './ListMenu';
+import HoodieSlider from './HoodieSlider';
 
 export {
   BottomNavigator,
@@ -12,4 +13,5 @@ export {
   ListCatHoodie,
   ListHoodies,
   ListMenu,
+  HoodieSlider,
 };
