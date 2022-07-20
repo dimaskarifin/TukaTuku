@@ -45,7 +45,7 @@ export default class HoodieDetail extends Component {
           <View style={styles.catHoodie}>
             <CardCatHoodie catHoodies={hoodie.cathoodie} />
           </View>
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.desc}>
               <Text style={styles.nama}>{hoodie.name}</Text>
               <Text style={styles.harga}>
