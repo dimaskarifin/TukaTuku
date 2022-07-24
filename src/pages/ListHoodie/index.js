@@ -28,10 +28,11 @@ export default class ListHoodie extends Component {
   }
   render() {
     const {catHoodie, Hoodies} = this.state;
+    const {navigation} = this.props;
     return (
       <View style={styles.page}>
         <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={-550}>
-          <HeaderComponent />
+          <HeaderComponent navigation={navigation} />
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.pilihCatHoodie}>
               <ListCatHoodie catHoodie={catHoodie} />

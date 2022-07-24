@@ -12,7 +12,7 @@ const TextIcon = ({icon, padding, type, onPress, title}) => {
     } else if (icon === 'arrow-left') {
       return <IconBack />;
     } else if (icon === 'cart-white') {
-      return <IconCart />;
+      return <CartWhite />;
     }
     return <IconCart />;
   };
@@ -29,7 +29,7 @@ export default TextIcon;
 
 const styles = StyleSheet.create({
   container: padding => ({
-    backgroundColor: colors.grey,
+    backgroundColor: colors.primary,
     padding: padding,
     borderRadius: 5,
     flexDirection: 'row',
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   }),
   text: {
     fontFamily: fonts.primary.bold,
-    color: colors.black,
+    color: colors.white,
     fontSize: RFValue(20, heightMobileUI),
   },
 });

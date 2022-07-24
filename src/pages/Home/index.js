@@ -34,7 +34,7 @@ export default class Home extends Component {
       <View style={styles.page}>
         <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={-550}>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <HeaderComponent />
+            <HeaderComponent navigation={navigation} />
             <BannerSlider />
             <View style={styles.pilihCatHoodie}>
               <Text style={styles.label}>Pilih Kategori Hoodie</Text>

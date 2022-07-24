@@ -5,4 +5,14 @@ import CardHoodie from './CardHoodie';
 import CardMenu from './CardMenu';
 import Inputan from './Inputan';
 import Pilihan from './Pilihan';
-export {Button, Jarak, CardCatHoodie, CardHoodie, CardMenu, Inputan, Pilihan};
+import CardKeranjang from './CardKeranjang';
+export {
+  Button,
+  Jarak,
+  CardCatHoodie,
+  CardHoodie,
+  CardMenu,
+  Inputan,
+  Pilihan,
+  CardKeranjang,
+};

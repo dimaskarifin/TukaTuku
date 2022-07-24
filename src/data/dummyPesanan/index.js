@@ -13,7 +13,7 @@ export const dummyPesanan = [
     status: 'keranjang',
     totalHarga: 135000,
     berat: 1,
-    pesanan: [
+    pesanans: [
       {
         id: 1,
         product: {
