@@ -7,6 +7,8 @@ import {
   Profile,
   HoodieDetail,
   Keranjang,
+  Checkout,
+  EditProfile,
 } from '../pages';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomNavigator} from '../components';
@@ -51,6 +53,12 @@ const Router = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen name="Keranjang" component={Keranjang} />
+      <Stack.Screen name="Checkout" component={Checkout} />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };

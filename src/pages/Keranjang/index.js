@@ -40,6 +40,7 @@ export default class Keranjang extends Component {
             fontSize={18}
             padding={responsiveHeight(15)}
             icon="cart-white"
+            onPress={() => this.props.navigation.navigate('Checkout')}
           />
         </View>
       </View>
@@ -73,5 +74,6 @@ const styles = StyleSheet.create({
   textBold: {
     fontSize: RFValue(24, heightMobileUI),
     fontFamily: fonts.primary.bold,
+    color: colors.black,
   },
 });

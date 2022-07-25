@@ -15,6 +15,7 @@ const Pilihan = ({fontSize, label, datas, width, height}) => {
           selectedValue={selectedValue}
           style={styles.picker(width, height, fontSize)}
           onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}>
+          <Picker.Item label="--Pilih--" value="" />
           {datas.map((item, index) => {
             return <Picker.Item label={item} value={item} key={index} />;
           })}
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     marginTop: responsiveHeight(2),
   },
   label: fontSize => ({
-    fontSize: fontSize ? fontSize : RFValue(10, heightMobileUI),
+    fontSize: fontSize ? fontSize : RFValue(20, heightMobileUI),
     fontFamily: fonts.primary.reguler,
     color: colors.black,
   }),
@@ -39,8 +40,8 @@ const styles = StyleSheet.create({
     fontSize: fontSize ? fontSize : RFValue(10, heightMobileUI),
     fontFamily: fonts.primary.reguler,
     color: colors.black,
-    width: width,
-    height: height ? height : responsiveHeight(46),
+    width: width ? width : responsiveWidth(350),
+    height: height ? height : responsiveHeight(40),
     marginTop: responsiveHeight(-16),
     marginBottom: responsiveHeight(16),
     marginRight: 20,
@@ -50,8 +51,5 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: colors.borderColor,
     color: colors.black,
-    marginTop: responsiveHeight(4),
-    marginRight: responsiveWidth(230),
-    marginBottom: responsiveHeight(6),
   },
 });

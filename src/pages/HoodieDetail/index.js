@@ -70,8 +70,8 @@ export default class HoodieDetail extends Component {
               <View style={styles.wrapperInputan}>
                 <Pilihan
                   label="Pilih Ukuran : "
-                  width={responsiveWidth(120)}
-                  height={responsiveHeight(35)}
+                  width={responsiveWidth(160)}
+                  height={responsiveHeight(40)}
                   fontSize={RFValue(20, heightMobileUI)}
                   datas={hoodie.ukuran}
                 />
@@ -175,10 +175,10 @@ const styles = StyleSheet.create({
     color: colors.black,
     fontSize: RFValue(20, heightMobileUI),
     fontFamily: fonts.primary.bold,
-    marginBottom: responsiveHeight(6),
+    marginBottom: responsiveHeight(4),
   },
   wrapperInputan: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    marginRight: responsiveWidth(190),
+    marginBottom: responsiveHeight(6),
   },
 });

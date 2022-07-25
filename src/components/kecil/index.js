@@ -6,6 +6,7 @@ import CardMenu from './CardMenu';
 import Inputan from './Inputan';
 import Pilihan from './Pilihan';
 import CardKeranjang from './CardKeranjang';
+import CardAlamat from './CardAlamat';
 export {
   Button,
   Jarak,
@@ -15,4 +16,5 @@ export {
   Inputan,
   Pilihan,
   CardKeranjang,
+  CardAlamat,
 };

@@ -6,5 +6,6 @@ export const dummyProfile = {
   nomerHp: '0852323232323',
   alamat: 'Jln Dr.Saharjo Blok Pasar',
   kota: 'Kota Kediri',
+  provinsi: 'Jawa Timur',
   avatar: FotoProfile,
 };
