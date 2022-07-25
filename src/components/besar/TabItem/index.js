@@ -8,7 +8,8 @@ import {
   IconHoodie,
   IconHoodieAct,
 } from '../../../assets';
-import {colors, fonts} from '../../../utils';
+import {colors, fonts, heightMobileUI} from '../../../utils';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 const TabItem = ({isFocused, onPress, onLongPress, label}) => {
   const Icon = () => {
@@ -44,9 +45,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: isFocused => ({
-    color: isFocused ? colors.white : colors.secondary,
-    fontSize: 12,
+    color: isFocused ? colors.black : colors.black,
+    fontSize: RFValue(16, heightMobileUI),
     marginTop: 4,
-    fontFamily: fonts.primary.bold,
+    fontFamily: isFocused ? fonts.primary.extraBold : fonts.primary.regular,
   }),
 });

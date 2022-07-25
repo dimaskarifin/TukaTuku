@@ -12,7 +12,7 @@ export const dummyMenu = [
     id: 2,
     nama: 'History Pemesanan',
     gambar: <IconHistory />,
-    halaman: 'HistoryPemesanan',
+    halaman: 'History',
   },
   {
     id: 3,

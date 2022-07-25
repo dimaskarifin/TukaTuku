@@ -9,6 +9,8 @@ import {
   Keranjang,
   Checkout,
   EditProfile,
+  ChangePassword,
+  History,
 } from '../pages';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomNavigator} from '../components';
@@ -58,6 +60,16 @@ const Router = () => {
         name="EditProfile"
         component={EditProfile}
         options={{title: 'Edit Profile'}}
+      />
+      <Stack.Screen
+        name="ChangePassword"
+        component={ChangePassword}
+        options={{title: 'Change Password'}}
+      />
+      <Stack.Screen
+        name="History"
+        component={History}
+        options={{title: 'History Pesanan'}}
       />
     </Stack.Navigator>
   );
