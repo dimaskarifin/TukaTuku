@@ -9,7 +9,7 @@ const Pilihan = ({fontSize, label, datas, width, height}) => {
   const [selectedValue, setSelectedValue] = useState('');
   return (
     <View style={styles.container}>
-      <Text style={styles.label(fontSize)}>{label}</Text>
+      <Text style={styles.label(fontSize)}>{label} :</Text>
       <View style={styles.wrapperPicker}>
         <Picker
           selectedValue={selectedValue}
@@ -29,7 +29,7 @@ export default Pilihan;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: responsiveHeight(2),
+    marginTop: responsiveHeight(6),
   },
   label: fontSize => ({
     fontSize: fontSize ? fontSize : RFValue(20, heightMobileUI),

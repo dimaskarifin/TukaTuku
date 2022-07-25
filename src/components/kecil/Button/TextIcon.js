@@ -1,6 +1,6 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {CartWhite, IconBack, IconCart} from '../../../assets';
+import {CartWhite, IconBack, IconCart, IconSubmit} from '../../../assets';
 import {colors, fonts, heightMobileUI} from '../../../utils';
 import Jarak from '../Jarak';
 import {RFValue} from 'react-native-responsive-fontsize';
@@ -13,6 +13,8 @@ const TextIcon = ({icon, padding, type, onPress, title}) => {
       return <IconBack />;
     } else if (icon === 'cart-white') {
       return <CartWhite />;
+    } else if (icon === 'submit') {
+      return <IconSubmit />;
     }
     return <IconCart />;
   };

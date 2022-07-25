@@ -1,18 +1,20 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {IconArrow} from '../../../assets';
 import {colors, fonts, responsiveHeight, responsiveWidth} from '../../../utils';
 import {RFValue} from 'react-native-responsive-fontsize';
 
-const CardMenu = ({menu}) => {
+const CardMenu = ({menu, navigation}) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.navigate(menu.halaman)}>
       <View style={styles.menu}>
         {menu.gambar}
         <Text style={styles.text}>{menu.nama}</Text>
       </View>
       <IconArrow />
-    </View>
+    </TouchableOpacity>
   );
 };
 

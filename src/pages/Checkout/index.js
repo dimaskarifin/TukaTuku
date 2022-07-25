@@ -36,7 +36,7 @@ export default class Checkout extends Component {
             </Text>
           </View>
 
-          <Pilihan label="Pilih Ekpedisi : " datas={ekspedisi} />
+          <Pilihan label="Pilih Ekpedisi" datas={ekspedisi} />
           <Jarak height={10} />
           <Text style={styles.textBold}>Biaya Ongkir :</Text>
           <View style={styles.descOngkir}>

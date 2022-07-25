@@ -29,7 +29,7 @@ export default class Profile extends Component {
               {profile.alamat}, {profile.kota}
             </Text>
           </View>
-          <ListMenu menus={menus} />
+          <ListMenu menus={menus} navigation={this.props.navigation} />
         </View>
       </View>
     );

@@ -57,7 +57,7 @@ const Router = () => {
       <Stack.Screen
         name="EditProfile"
         component={EditProfile}
-        options={{headerShown: false}}
+        options={{title: 'Edit Profile'}}
       />
     </Stack.Navigator>
   );

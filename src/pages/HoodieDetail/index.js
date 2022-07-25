@@ -69,7 +69,7 @@ export default class HoodieDetail extends Component {
               <Text style={styles.stok}>Jumlah Stok : {hoodie.stok}</Text>
               <View style={styles.wrapperInputan}>
                 <Pilihan
-                  label="Pilih Ukuran : "
+                  label="Pilih Ukuran"
                   width={responsiveWidth(160)}
                   height={responsiveHeight(40)}
                   fontSize={RFValue(20, heightMobileUI)}
@@ -77,9 +77,9 @@ export default class HoodieDetail extends Component {
                 />
               </View>
               <Inputan
-                label="Keterangan :"
+                label="Keterangan"
                 textarea
-                fontSize={RFValue(20, heightMobileUI)}
+                fontSize={RFValue(22, heightMobileUI)}
               />
               <Jarak height={20} />
               <Button
