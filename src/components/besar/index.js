@@ -6,6 +6,7 @@ import ListHoodies from './ListHoodies';
 import ListMenu from './ListMenu';
 import HoodieSlider from './HoodieSlider';
 import ListKeranjang from './ListKeranjang';
+import ListHistory from './ListHistory';
 
 export {
   BottomNavigator,
@@ -16,4 +17,5 @@ export {
   ListMenu,
   HoodieSlider,
   ListKeranjang,
+  ListHistory,
 };

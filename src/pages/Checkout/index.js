@@ -10,7 +10,7 @@ import {
 } from '../../utils';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {Button, CardAlamat, Jarak, Pilihan} from '../../components';
-import {dummyProfile, dummyPesanan} from '../../data';
+import {dummyProfile, dummyPesanans} from '../../data';
 
 export default class Checkout extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ export default class Checkout extends Component {
 
     this.state = {
       profile: dummyProfile,
-      pesanan: dummyPesanan[0],
+      pesanan: dummyPesanans[0],
       ekspedisi: [],
     };
   }

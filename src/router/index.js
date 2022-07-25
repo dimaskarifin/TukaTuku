@@ -11,6 +11,7 @@ import {
   EditProfile,
   ChangePassword,
   History,
+  Login,
 } from '../pages';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomNavigator} from '../components';
@@ -70,6 +71,11 @@ const Router = () => {
         name="History"
         component={History}
         options={{title: 'History Pesanan'}}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );

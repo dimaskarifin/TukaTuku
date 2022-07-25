@@ -42,7 +42,7 @@ export default class ListHoodie extends Component {
                 Pilih <Text style={styles.boldLabel}>Hoodie</Text> yang anda
                 inginkan
               </Text>
-              <ListHoodies Hoodies={Hoodies} />
+              <ListHoodies Hoodies={Hoodies} navigation={navigation} />
               <Jarak height={10} />
               <Button title="Lihat Semua" type="text" padding={7} />
             </View>

@@ -17,7 +17,6 @@ import {
   Jarak,
   Pilihan,
 } from '../../components';
-import {PageScrollView} from 'pagescrollview';
 
 export default class HoodieDetail extends Component {
   constructor(props) {

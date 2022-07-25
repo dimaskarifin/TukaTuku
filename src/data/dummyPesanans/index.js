@@ -6,7 +6,7 @@ import {
   Hoodie,
   Ziphoodie,
 } from '../../assets';
-export const dummyPesanan = [
+export const dummyPesanans = [
   {
     id: 1,
     tanggalPesanan: 'Jumat, 18 Maret 2022',
@@ -49,9 +49,9 @@ export const dummyPesanan = [
     id: 2,
     tanggalPesanan: 'Minggu, 20 Maret 2022',
     status: 'lunas',
-    totalHarga: 135000,
+    totalHarga: 125000,
     berat: 1,
-    pesanan: [
+    pesanans: [
       {
         id: 1,
         product: {

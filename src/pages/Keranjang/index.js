@@ -1,6 +1,6 @@
 import {Text, StyleSheet, View} from 'react-native';
 import React, {Component} from 'react';
-import {dummyPesanan} from '../../data';
+import {dummyPesanans} from '../../data';
 import {ListKeranjang} from '../../components/besar';
 import {
   colors,
@@ -18,7 +18,7 @@ export default class Keranjang extends Component {
     super(props);
 
     this.state = {
-      pesanan: dummyPesanan[0],
+      pesanan: dummyPesanans[0],
     };
   }
   render() {
