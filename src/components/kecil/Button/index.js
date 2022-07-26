@@ -36,9 +36,17 @@ export default Button;
 
 const styles = StyleSheet.create({
   container: padding => ({
-    backgroundColor: colors.grey,
+    backgroundColor: colors.white,
     padding: padding,
     borderRadius: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   }),
   notif: {
     position: 'absolute',

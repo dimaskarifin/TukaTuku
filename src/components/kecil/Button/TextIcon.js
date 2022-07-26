@@ -1,11 +1,17 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {CartWhite, IconBack, IconCart, IconSubmit} from '../../../assets';
+import {
+  CartWhite,
+  IconBack,
+  IconCart,
+  IconContinue,
+  IconSubmit,
+} from '../../../assets';
 import {colors, fonts, heightMobileUI} from '../../../utils';
 import Jarak from '../Jarak';
 import {RFValue} from 'react-native-responsive-fontsize';
 
-const TextIcon = ({icon, padding, type, onPress, title}) => {
+const TextIcon = ({icon, padding, type, onPress, title, fontSize}) => {
   const Icon = () => {
     if (icon === 'cart') {
       return <IconCart />;
@@ -15,6 +21,8 @@ const TextIcon = ({icon, padding, type, onPress, title}) => {
       return <CartWhite />;
     } else if (icon === 'submit') {
       return <IconSubmit />;
+    } else if (icon === 'continue') {
+      return <IconContinue />;
     }
     return <IconCart />;
   };
@@ -22,7 +30,7 @@ const TextIcon = ({icon, padding, type, onPress, title}) => {
     <TouchableOpacity style={styles.container(padding)} onPress={onPress}>
       <Icon />
       <Jarak width={10} />
-      <Text style={styles.text}>{title}</Text>
+      <Text style={styles.text(fontSize)}>{title}</Text>
     </TouchableOpacity>
   );
 };
@@ -38,9 +46,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   }),
-  text: {
+  text: fontSize => ({
     fontFamily: fonts.primary.bold,
     color: colors.white,
-    fontSize: RFValue(20, heightMobileUI),
-  },
+    fontSize: fontSize ? fontSize : RFValue(20, heightMobileUI),
+  }),
 });

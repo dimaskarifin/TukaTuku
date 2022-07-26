@@ -18,8 +18,16 @@ export default class Login extends Component {
           <Button title="Login" type="text" padding={14} fontSize={18} />
         </View>
         <View style={styles.regis}>
-          <Text style={styles.textBlue}>Belum punya akun?</Text>
-          <Text style={styles.textBlue}>Klik untuk daftar</Text>
+          <Text
+            style={styles.textBlue}
+            onPress={() => this.props.navigation.navigate('Register1')}>
+            Belum punya akun?
+          </Text>
+          <Text
+            style={styles.textBlue}
+            onPress={() => this.props.navigation.navigate('Register1')}>
+            Klik untuk daftar
+          </Text>
         </View>
       </View>
     );

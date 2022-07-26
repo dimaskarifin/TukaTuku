@@ -15,6 +15,7 @@ import IconBack from './arrow-left.svg';
 import CartWhite from './cart-white.svg';
 import IconTrash from './trash.svg';
 import IconSubmit from './submit.svg';
+import IconContinue from './arrow-right.svg';
 
 export {
   IconHomeAct,
@@ -34,4 +35,5 @@ export {
   CartWhite,
   IconTrash,
   IconSubmit,
+  IconContinue,
 };
