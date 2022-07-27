@@ -13,6 +13,8 @@ const Inputan = ({
   value,
   secureTextEntry,
   keyboardType,
+  onChangeText,
+  disabled,
 }) => {
   if (textarea) {
     return (
@@ -23,6 +25,8 @@ const Inputan = ({
           multiline={true}
           numberOfLines={3}
           value={value}
+          onChangeText={onChangeText}
+          editable={disabled ? false : true}
         />
       </View>
     );
@@ -35,6 +39,8 @@ const Inputan = ({
         value={value}
         secureTextEntry={secureTextEntry}
         keyboardType={keyboardType}
+        onChangeText={onChangeText}
+        editable={disabled ? false : true}
       />
     </View>
   );

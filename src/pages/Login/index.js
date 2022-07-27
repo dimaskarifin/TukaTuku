@@ -1,21 +1,67 @@
-import {StyleSheet, View, Text} from 'react-native';
+import {Alert, StyleSheet, View, Text} from 'react-native';
 import React, {Component} from 'react';
 import {LogoLog} from '../../assets';
 import {colors, fonts, responsiveHeight} from '../../utils';
 import {Button, Inputan, Jarak} from '../../components';
+import {loginUser} from '../../actions/AuthAction';
+import {connect} from 'react-redux';
 
-export default class Login extends Component {
+class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+  login = () => {
+    const {email, password} = this.state;
+
+    if (email && password) {
+      //action
+      this.props.dispatch(loginUser(email, password));
+    } else {
+      Alert.alert('Error', 'Email & Password harus diisi');
+    }
+  };
+  componentDidUpdate(prevProps) {
+    const {loginResult} = this.props;
+
+    if (loginResult && prevProps.loginResult !== loginResult) {
+      this.props.navigation.replace('MainApp');
+    }
+  }
   render() {
+    const {email, password} = this.state;
+    const {loginLoading} = this.props;
+
     return (
       <View style={styles.pages}>
         <View style={styles.logo}>
           <LogoLog />
         </View>
         <View style={styles.cardLogin}>
-          <Inputan label="Email" />
-          <Inputan label="Password" secureTextEntry />
+          <Inputan
+            label="Email"
+            value={email}
+            onChangeText={email => this.setState({email})}
+          />
+          <Inputan
+            label="Password"
+            secureTextEntry
+            value={password}
+            onChangeText={password => this.setState({password})}
+          />
           <Jarak height={20} />
-          <Button title="Login" type="text" padding={14} fontSize={18} />
+          <Button
+            title="Login"
+            type="text"
+            padding={14}
+            fontSize={18}
+            loading={loginLoading}
+            onPress={() => this.login()}
+          />
         </View>
         <View style={styles.regis}>
           <Text
@@ -33,7 +79,12 @@ export default class Login extends Component {
     );
   }
 }
-
+const mapStateToProps = state => ({
+  loginLoading: state.AuthReducer.loginLoading,
+  loginResult: state.AuthReducer.loginResult,
+  loginError: state.AuthReducer.loginError,
+});
+export default connect(mapStateToProps, null)(Login);
 const styles = StyleSheet.create({
   pages: {
     flex: 1,

@@ -5,6 +5,7 @@ import FotoProfile from './avatar.jpg';
 import LogoLog from './logoLog.svg';
 import IlustrasiRegister1 from './regis1.js';
 import IlustrasiRegister2 from './regis2.js';
+import DefaultImage from './default.jpg';
 
 export {
   Logo,
@@ -14,4 +15,5 @@ export {
   LogoLog,
   IlustrasiRegister1,
   IlustrasiRegister2,
+  DefaultImage,
 };

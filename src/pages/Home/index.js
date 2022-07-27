@@ -17,8 +17,10 @@ import {
 import {colors, fonts, responsiveHeight} from '../../utils';
 import {dummyCatHoodie, dummyHoodies} from '../../data';
 import {RFValue} from 'react-native-responsive-fontsize';
+import {connect} from 'react-redux';
+import {getUser} from '../../actions/UserAction';
 
-export default class Home extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
 
@@ -56,6 +58,8 @@ export default class Home extends Component {
     );
   }
 }
+
+export default Home;
 
 const styles = StyleSheet.create({
   page: {

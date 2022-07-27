@@ -1,11 +1,33 @@
-import {Text, StyleSheet, View} from 'react-native';
+import {Text, StyleSheet, View, Alert} from 'react-native';
 import React, {Component} from 'react';
 import {colors, fonts, responsiveHeight, responsiveWidth} from '../../utils';
 import {IlustrasiRegister1} from '../../assets/images';
 import {Button, Inputan, Jarak} from '../../components';
 
 export default class Register1 extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      nama: '',
+      email: '',
+      nohp: '',
+      password: '',
+    };
+  }
+  onContinue = () => {
+    const {nama, email, nohp, password} = this.state;
+    if (nama && email && nohp && password) {
+      this.props.navigation.navigate('Register2', this.state);
+    } else {
+      Alert.alert(
+        'Error',
+        'Nama, email, no. handphone, dan password harus diisi',
+      );
+    }
+  };
   render() {
+    const {nama, email, nohp, password} = this.state;
     return (
       <View style={styles.page}>
         <View style={styles.btnBack}>
@@ -29,10 +51,28 @@ export default class Register1 extends Component {
           </View>
         </View>
         <View style={styles.card}>
-          <Inputan label="Nama" />
-          <Inputan label="Email" />
-          <Inputan label="No. Handphone" keyboardType="number-pad" />
-          <Inputan label="Password" secureTextEntry />
+          <Inputan
+            label="Nama"
+            value={nama}
+            onChangeText={nama => this.setState({nama})}
+          />
+          <Inputan
+            label="Email"
+            value={email}
+            onChangeText={email => this.setState({email})}
+          />
+          <Inputan
+            label="No. Handphone"
+            keyboardType="number-pad"
+            value={nohp}
+            onChangeText={nohp => this.setState({nohp})}
+          />
+          <Inputan
+            label="Password"
+            secureTextEntry
+            value={password}
+            onChangeText={password => this.setState({password})}
+          />
           <Jarak height={30} />
           <Button
             title="Continue"
@@ -40,7 +80,7 @@ export default class Register1 extends Component {
             icon="continue"
             padding={12}
             fontSize={20}
-            onPress={() => this.props.navigation.navigate('Register2')}
+            onPress={() => this.onContinue()}
           />
         </View>
       </View>

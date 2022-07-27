@@ -4,35 +4,119 @@ import {dummyProfile} from '../../data';
 import {
   colors,
   fonts,
+  getData,
   heightMobileUI,
   responsiveHeight,
   responsiveWidth,
 } from '../../utils';
 import {Button, Inputan, Pilihan} from '../../components';
 import {RFValue} from 'react-native-responsive-fontsize';
+import {connect} from 'react-redux';
+import {getKotaList, getProvinsiList} from '../../actions/RajaOngkirAction';
+import {DefaultImage} from '../../assets';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {updateProfile} from '../../actions/ProfileAction';
 
-export default class EditProfile extends Component {
+class EditProfile extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      uid: '',
+      nama: '',
+      email: '',
+      nohp: '',
+      alamat: '',
+      provinsi: false,
+      kota: false,
+      avatar: false,
       dataKota: [],
       dataProvinsi: [],
       profile: dummyProfile,
     };
   }
+
+  componentDidMount() {
+    this.getUserData();
+    this.props.dispatch(getProvinsiList());
+  }
+
+  getUserData = () => {
+    getData('user').then(res => {
+      const data = res;
+      this.setState({
+        uid: data.uid,
+        nama: data.nama,
+        email: data.email,
+        nohp: data.nohp,
+        alamat: data.alamat,
+        kota: data.kota,
+        provinsi: data.provinsi,
+      });
+      this.props.dispatch(getKotaList(data.provinsi));
+    });
+  };
+  ubahProvinsi = provinsi => {
+    this.setState({
+      provinsi: provinsi,
+    });
+
+    this.props.dispatch(getKotaList(provinsi));
+  };
+
   render() {
-    const {dataKota, dataProvinsi, profile} = this.state;
+    const {
+      dataKota,
+      dataProvinsi,
+      profile,
+      uid,
+      nama,
+      email,
+      nohp,
+      alamat,
+      provinsi,
+      kota,
+    } = this.state;
+    const {getKotaResult, getProvinsiResult} = this.props;
     return (
       <View style={styles.page}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Inputan label="Nama" value={profile.nama} />
-          <Inputan label="Email" value={profile.email} />
-          <Inputan label="No. Handphone" value={profile.nomerHp} />
-          <Inputan label="Alamat" value={profile.alamat} textarea />
+          <Inputan
+            label="Nama"
+            value={nama}
+            onChangeText={nama => this.setState({nama})}
+          />
+          <Inputan
+            label="Email"
+            disabled
+            value={email}
+            onChangeText={email => this.setState({email})}
+          />
+          <Inputan
+            label="No. Handphone"
+            keyboardType="number-pad"
+            value={nohp}
+            onChangeText={nohp => this.setState({nohp})}
+          />
+          <Inputan
+            label="Alamat"
+            value={alamat}
+            onChangeText={alamat => this.setState({alamat})}
+            textarea
+          />
 
-          <Pilihan label="Provinsi" datas={dataProvinsi} />
-          <Pilihan label="Kota/Kab" datas={dataKota} />
+          <Pilihan
+            label="Provinsi"
+            datas={getProvinsiResult ? getProvinsiResult : []}
+            selectedValue={provinsi}
+            onValueChange={provinsi => this.ubahProvinsi(provinsi)}
+          />
+          <Pilihan
+            label="Kota/Kab"
+            datas={getKotaResult ? getKotaResult : []}
+            selectedValue={kota}
+            onValueChange={kota => this.setState({kota: kota})}
+          />
 
           <View style={styles.inputFoto}>
             <Text style={styles.label}>Foto Profile :</Text>
@@ -60,6 +144,13 @@ export default class EditProfile extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  getProvinsiResult: state.RajaOngkirReducer.getProvinsiResult,
+  getKotaResult: state.RajaOngkirReducer.getKotaResult,
+});
+
+export default connect(mapStateToProps, null)(EditProfile);
 
 const styles = StyleSheet.create({
   page: {

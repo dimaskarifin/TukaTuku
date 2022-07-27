@@ -1,14 +1,37 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {IconArrow} from '../../../assets';
-import {colors, fonts, responsiveHeight, responsiveWidth} from '../../../utils';
+import {
+  clearStorage,
+  colors,
+  fonts,
+  responsiveHeight,
+  responsiveWidth,
+} from '../../../utils';
 import {RFValue} from 'react-native-responsive-fontsize';
+import FIREBASE from '../../../configs/FIREBASE';
 
 const CardMenu = ({menu, navigation}) => {
+  const onSubmit = () => {
+    if (menu.halaman === 'Login') {
+      FIREBASE.auth()
+        .signOut()
+        .then(function () {
+          // Sign-out successful.
+
+          clearStorage();
+          navigation.replace('Login');
+        })
+        .catch(function (error) {
+          // An error happened.
+          alert(error);
+        });
+    } else {
+      navigation.navigate(menu.halaman);
+    }
+  };
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => navigation.navigate(menu.halaman)}>
+    <TouchableOpacity style={styles.container} onPress={() => onSubmit()}>
       <View style={styles.menu}>
         {menu.gambar}
         <Text style={styles.text}>{menu.nama}</Text>
