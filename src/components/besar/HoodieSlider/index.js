@@ -18,7 +18,7 @@ export default class HoodieSlider extends Component {
       openImage: true,
       previewImage: [
         {
-          url: '',
+          url: this.props.images[index],
           props: {
             source: this.props.images[index],
           },
@@ -39,7 +39,10 @@ export default class HoodieSlider extends Component {
           dotStyle={styles.dotStyle}
           onCurrentImagePressed={index => this.clickPreview(index)}
         />
-        <Modal visible={openImage} transparent={true}>
+        <Modal
+          visible={openImage}
+          transparent={true}
+          onRequestClose={() => this.setState({openImage: false})}>
           <ImageViewer
             imageUrls={previewImage}
             onClick={() => this.setState({openImage: false})}

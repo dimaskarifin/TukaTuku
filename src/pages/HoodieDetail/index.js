@@ -32,7 +32,7 @@ class HoodieDetail extends Component {
 
   componentDidMount() {
     const {hoodie} = this.state;
-    this.props.dispatch(getDetailCatHoodie(hoodie.catHoodie));
+    this.props.dispatch(getDetailCatHoodie(hoodie.cathoodies));
   }
 
   render() {
@@ -53,6 +53,7 @@ class HoodieDetail extends Component {
             <CardCatHoodie
               catHoodies={getDetailCatHoodieResult}
               navigation={navigation}
+              id={hoodie.cathoodies}
             />
           </View>
           <ScrollView showsVerticalScrollIndicator={false}>
@@ -73,7 +74,7 @@ class HoodieDetail extends Component {
               <Text style={styles.ket}>Deskripsi Produk :</Text>
               <View style={styles.kethoodie}>
                 <Text numberOfLines={100} style={styles.kethoodie}>
-                  {hoodie.deskripsi}aowkdoawkdoakwdoawodkaowdkoawdawdoawkdo
+                  {hoodie.deskripsi}
                 </Text>
               </View>
               <Text style={styles.stok}>Jumlah Stok : {hoodie.stok}</Text>
@@ -112,7 +113,7 @@ const mapStateToProps = state => ({
   getDetailCatHoodieResult: state.CatHoodieReducer.getDetailCatHoodieResult,
 });
 
-export default connect()(HoodieDetail);
+export default connect(mapStateToProps, null)(HoodieDetail);
 
 const styles = StyleSheet.create({
   page: {

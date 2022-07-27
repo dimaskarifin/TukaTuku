@@ -25,13 +25,12 @@ export const getListCatHoodie = () => {
 
 export const getDetailCatHoodie = id => {
   return dispatch => {
-    dispatchLoading(dispatch, getDetailCatHoodie);
+    dispatchLoading(dispatch, GET_DETAIL_CATHOODIE);
 
     FIREBASE.database()
-      .ref('cathoodie/' + id)
+      .ref('cathoodies/' + id)
       .once('value', querySnapshot => {
         //Hasil
-        console.log('Data : ', querySnapshot.val());
         let data = querySnapshot.val();
 
         dispatchSuccess(dispatch, GET_DETAIL_CATHOODIE, data);
