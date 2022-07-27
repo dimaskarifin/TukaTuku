@@ -17,8 +17,10 @@ import {
   Jarak,
   Pilihan,
 } from '../../components';
+import {connect} from 'react-redux';
+import {getDetailCatHoodie} from '../../actions/CatHoodie';
 
-export default class HoodieDetail extends Component {
+class HoodieDetail extends Component {
   constructor(props) {
     super(props);
 
@@ -27,8 +29,14 @@ export default class HoodieDetail extends Component {
       images: this.props.route.params.Hoodie.gambar,
     };
   }
+
+  componentDidMount() {
+    const {hoodie} = this.state;
+    this.props.dispatch(getDetailCatHoodie(hoodie.catHoodie));
+  }
+
   render() {
-    const {navigation} = this.props;
+    const {navigation, getDetailCatHoodieResult} = this.props;
     const {hoodie, images} = this.state;
     return (
       <View style={styles.page}>
@@ -42,11 +50,14 @@ export default class HoodieDetail extends Component {
         <HoodieSlider images={images} />
         <View style={styles.container}>
           <View style={styles.catHoodie}>
-            <CardCatHoodie catHoodies={hoodie.cathoodie} />
+            <CardCatHoodie
+              catHoodies={getDetailCatHoodieResult}
+              navigation={navigation}
+            />
           </View>
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.desc}>
-              <Text style={styles.nama}>{hoodie.name}</Text>
+              <Text style={styles.nama}>{hoodie.nama}</Text>
               <Text style={styles.harga}>
                 Rp {numberWithCommas(hoodie.harga)}
               </Text>
@@ -62,7 +73,7 @@ export default class HoodieDetail extends Component {
               <Text style={styles.ket}>Deskripsi Produk :</Text>
               <View style={styles.kethoodie}>
                 <Text numberOfLines={100} style={styles.kethoodie}>
-                  {hoodie.deskripsi} aowkdoawkdoakwdoawodkaowdkoawdawdoawkdo
+                  {hoodie.deskripsi}aowkdoawkdoakwdoawodkaowdkoawdawdoawkdo
                 </Text>
               </View>
               <Text style={styles.stok}>Jumlah Stok : {hoodie.stok}</Text>
@@ -96,6 +107,12 @@ export default class HoodieDetail extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  getDetailCatHoodieResult: state.CatHoodieReducer.getDetailCatHoodieResult,
+});
+
+export default connect()(HoodieDetail);
 
 const styles = StyleSheet.create({
   page: {

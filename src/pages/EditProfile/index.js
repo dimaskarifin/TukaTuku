@@ -1,4 +1,4 @@
-import {Text, StyleSheet, View, ScrollView, Image} from 'react-native';
+import {Text, StyleSheet, View, ScrollView, Image, Alert} from 'react-native';
 import React, {Component} from 'react';
 import {dummyProfile} from '../../data';
 import {
@@ -30,15 +30,26 @@ class EditProfile extends Component {
       provinsi: false,
       kota: false,
       avatar: false,
-      dataKota: [],
-      dataProvinsi: [],
-      profile: dummyProfile,
+      avatarForDB: '',
+      avatarLama: '',
+      updateAvatar: false,
     };
   }
 
   componentDidMount() {
     this.getUserData();
     this.props.dispatch(getProvinsiList());
+  }
+  componentDidUpdate(prevProps) {
+    const {updateProfileResult} = this.props;
+
+    if (
+      updateProfileResult &&
+      prevProps.updateProfileResult !== updateProfileResult
+    ) {
+      Alert.alert('Sukses', 'Update Profile Success');
+      this.props.navigation.replace('MainApp');
+    }
   }
 
   getUserData = () => {
@@ -52,6 +63,8 @@ class EditProfile extends Component {
         alamat: data.alamat,
         kota: data.kota,
         provinsi: data.provinsi,
+        avatar: data.avatar,
+        avatarLama: data.avatar,
       });
       this.props.dispatch(getKotaList(data.provinsi));
     });
@@ -64,20 +77,41 @@ class EditProfile extends Component {
     this.props.dispatch(getKotaList(provinsi));
   };
 
+  onSubmit = () => {
+    const {nama, alamat, nohp, provinsi, kota} = this.state;
+    if (nama && nohp && alamat && provinsi && kota) {
+      //dispatch update
+      this.props.dispatch(updateProfile(this.state));
+    } else {
+      Alert.alert('Error', 'Nama, No. HP, Alamat, Kota, Provinsi harus diisi');
+    }
+  };
+
+  getImage = () => {
+    launchImageLibrary(
+      {quality: 1, maxWidth: 500, maxHeight: 500, includeBase64: true},
+      response => {
+        if (response.didCancel || response.errorCode || response.errorMessage) {
+          Alert.alert('Error ', 'Maaf sepertinya anda tidak memilih foto');
+        } else {
+          const source = response.assets[0].uri;
+          const fileString = `data:${response.assets[0].type};base64,${response.assets[0].base64}`;
+
+          this.setState({
+            avatar: source,
+            avatarForDB: fileString,
+            updateAvatar: true,
+          });
+        }
+      },
+    );
+  };
+
   render() {
-    const {
-      dataKota,
-      dataProvinsi,
-      profile,
-      uid,
-      nama,
-      email,
-      nohp,
-      alamat,
-      provinsi,
-      kota,
-    } = this.state;
-    const {getKotaResult, getProvinsiResult} = this.props;
+    const {nama, email, alamat, nohp, provinsi, kota, avatar} = this.state;
+
+    const {getKotaResult, getProvinsiResult, updateProfileLoading} = this.props;
+
     return (
       <View style={styles.page}>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -99,7 +133,7 @@ class EditProfile extends Component {
             onChangeText={nohp => this.setState({nohp})}
           />
           <Inputan
-            label="Alamat"
+            label="Alamat Lengkap"
             value={alamat}
             onChangeText={alamat => this.setState({alamat})}
             textarea
@@ -122,10 +156,18 @@ class EditProfile extends Component {
             <Text style={styles.label}>Foto Profile :</Text>
 
             <View style={styles.wrapperUpload}>
-              <Image source={profile.avatar} style={styles.foto} />
+              <Image
+                source={avatar ? {uri: avatar} : DefaultImage}
+                style={styles.foto}
+              />
 
               <View style={styles.tombolChangePhoto}>
-                <Button title="Change Photo" type="text" padding={7} />
+                <Button
+                  title="Change Photo"
+                  type="text"
+                  padding={7}
+                  onPress={() => this.getImage()}
+                />
               </View>
             </View>
           </View>
@@ -137,6 +179,8 @@ class EditProfile extends Component {
               icon="submit"
               padding={responsiveHeight(15)}
               fontSize={18}
+              loading={updateProfileLoading}
+              onPress={() => this.onSubmit()}
             />
           </View>
         </ScrollView>
@@ -148,6 +192,10 @@ class EditProfile extends Component {
 const mapStateToProps = state => ({
   getProvinsiResult: state.RajaOngkirReducer.getProvinsiResult,
   getKotaResult: state.RajaOngkirReducer.getKotaResult,
+
+  updateProfileLoading: state.ProfileReducer.updateProfileLoading,
+  updateProfileResult: state.ProfileReducer.updateProfileResult,
+  updateProfileError: state.ProfileReducer.updateProfileError,
 });
 
 export default connect(mapStateToProps, null)(EditProfile);

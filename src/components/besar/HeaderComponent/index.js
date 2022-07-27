@@ -3,9 +3,38 @@ import React, {Component} from 'react';
 import {colors, responsiveHeight, responsiveWidth} from '../../../utils';
 import {IconSearch} from '../../../assets';
 import {Button, Jarak} from '../../kecil';
+import {saveKeywordHoodie} from '../../../actions/HoodieAction';
+import {connect} from 'react-redux';
 
-export default class HeaderComponent extends Component {
+class HeaderComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      search: '',
+    };
+  }
+
+  selesaiCari = () => {
+    const {page, navigation, dispatch} = this.props;
+    const {search} = this.state;
+
+    //Jalankan action save keyword
+    dispatch(saveKeywordHoodie(search));
+
+    //Jika halaman home maka kita navigate ke ListHoodie
+    if (page !== 'ListHoodie') {
+      navigation.navigate('ListHoodie');
+    }
+
+    //kembalikan state search ke string kosong
+    this.setState({
+      search: '',
+    });
+  };
+
   render() {
+    const {search} = this.state;
     const {navigation} = this.props;
     return (
       <View>
@@ -13,7 +42,13 @@ export default class HeaderComponent extends Component {
           {/* Input Pencarian */}
           <View style={styles.searchSection}>
             <IconSearch />
-            <TextInput placeholder="Cari Hoodie ..." style={styles.input} />
+            <TextInput
+              placeholder="Cari Hoodie ..."
+              style={styles.input}
+              value={search}
+              onChangeText={search => this.setState({search})}
+              onSubmitEditing={() => this.selesaiCari()}
+            />
           </View>
           <Jarak width={10} />
           <Button
@@ -27,6 +62,8 @@ export default class HeaderComponent extends Component {
     );
   }
 }
+
+export default connect()(HeaderComponent);
 
 const styles = StyleSheet.create({
   wrapperHeader: {

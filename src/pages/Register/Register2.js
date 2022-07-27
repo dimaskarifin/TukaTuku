@@ -82,7 +82,7 @@ class Register2 extends Component {
         </View>
         <View style={styles.card}>
           <Inputan
-            label="Alamat"
+            label="Alamat Lengkap"
             textarea
             onChangeText={alamat => this.setState({alamat})}
             value={alamat}

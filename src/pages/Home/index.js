@@ -15,39 +15,40 @@ import {
   ListHoodies,
 } from '../../components';
 import {colors, fonts, responsiveHeight} from '../../utils';
-import {dummyCatHoodie, dummyHoodies} from '../../data';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {connect} from 'react-redux';
-import {getUser} from '../../actions/UserAction';
+import {getListCatHoodie} from '../../actions/CatHoodie';
+import {limitHoodie} from '../../actions/HoodieAction';
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.props.dispatch(getListCatHoodie());
+      this.props.dispatch(limitHoodie());
+    });
+  }
 
-    this.state = {
-      catHoodie: dummyCatHoodie,
-      Hoodies: dummyHoodies,
-    };
+  componentWillUnmount() {
+    this._unsubscribe();
   }
   render() {
-    const {catHoodie, Hoodies} = this.state;
     const {navigation} = this.props;
     return (
       <View style={styles.page}>
         <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={-550}>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <HeaderComponent navigation={navigation} />
+            <HeaderComponent navigation={navigation} page="Home" />
             <BannerSlider />
             <View style={styles.pilihCatHoodie}>
               <Text style={styles.label}>Pilih Kategori Hoodie</Text>
-              <ListCatHoodie catHoodie={catHoodie} />
+              <ListCatHoodie navigation={navigation} />
             </View>
             <View style={styles.pilihHoodie}>
               <Text style={styles.label}>
                 Pilih <Text style={styles.boldLabel}>Hoodie</Text> yang anda
                 inginkan
               </Text>
-              <ListHoodies Hoodies={Hoodies} navigation={navigation} />
+              <ListHoodies navigation={navigation} />
               <Jarak height={10} />
               <Button title="Lihat Semua" type="text" padding={7} />
             </View>
@@ -59,7 +60,7 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default connect()(Home);
 
 const styles = StyleSheet.create({
   page: {

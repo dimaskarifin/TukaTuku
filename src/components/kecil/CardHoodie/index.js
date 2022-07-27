@@ -14,8 +14,8 @@ const CardHoodie = ({Hoodie, navigation}) => {
       <TouchableOpacity
         style={styles.card}
         onPress={() => navigation.navigate('HoodieDetail', {Hoodie})}>
-        <Image source={Hoodie.gambar[0]} style={styles.gambar} />
-        <Text style={styles.text}>{Hoodie.name}</Text>
+        <Image source={{uri: Hoodie.gambar[0]}} style={styles.gambar} />
+        <Text style={styles.text}>{Hoodie.nama}</Text>
         <Text style={styles.textHarga}>
           Rp {numberWithCommas(Hoodie.harga)}
         </Text>

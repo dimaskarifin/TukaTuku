@@ -2,8 +2,10 @@ import {View, StyleSheet} from 'react-native';
 import React from 'react';
 import TabItem from '../TabItem';
 import {colors} from '../../../utils';
+import {connect} from 'react-redux';
+import {deleteParameterHoodie} from '../../../actions/HoodieAction';
 
-const BottomNavigator = ({state, descriptors, navigation}) => {
+const BottomNavigator = ({state, descriptors, navigation, dispatch}) => {
   return (
     <View style={styles.container}>
       {state.routes.map((route, index) => {
@@ -28,6 +30,10 @@ const BottomNavigator = ({state, descriptors, navigation}) => {
             // The `merge: true` option makes sure that the params inside the tab screen are preserved
             navigation.navigate({name: route.name, merge: true});
           }
+
+          if (route.name != 'ListHoodie') {
+            dispatch(deleteParameterHoodie());
+          }
         };
 
         const onLongPress = () => {
@@ -51,7 +57,7 @@ const BottomNavigator = ({state, descriptors, navigation}) => {
   );
 };
 
-export default BottomNavigator;
+export default connect()(BottomNavigator);
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
