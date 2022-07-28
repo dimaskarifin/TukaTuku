@@ -1,4 +1,4 @@
-import FIREBASE from '../configs/FIREBASE';
+import FIREBASE from '../config/FIREBASE';
 import {storeData} from '../utils';
 import {dispatchError, dispatchLoading, dispatchSuccess} from '../utils';
 

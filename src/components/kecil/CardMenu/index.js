@@ -9,7 +9,7 @@ import {
   responsiveWidth,
 } from '../../../utils';
 import {RFValue} from 'react-native-responsive-fontsize';
-import FIREBASE from '../../../configs/FIREBASE';
+import FIREBASE from '../../../config/FIREBASE';
 
 const CardMenu = ({menu, navigation}) => {
   const onSubmit = () => {

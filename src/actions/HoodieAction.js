@@ -1,4 +1,4 @@
-import FIREBASE from '../configs/FIREBASE';
+import FIREBASE from '../config/FIREBASE';
 import {dispatchError, dispatchLoading, dispatchSuccess} from '../utils';
 
 export const GET_LIST_HOODIE = 'GET_LIST_HOODIE';
