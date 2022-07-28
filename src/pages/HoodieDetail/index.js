@@ -1,4 +1,4 @@
-import {Text, StyleSheet, View, Image, ScrollView} from 'react-native';
+import {Text, StyleSheet, View, Image, ScrollView, Alert} from 'react-native';
 import React, {Component} from 'react';
 import {colors} from '../../utils/colors';
 import {
@@ -7,6 +7,7 @@ import {
   responsiveHeight,
   heightMobileUI,
   responsiveWidth,
+  getData,
 } from '../../utils';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {
@@ -27,6 +28,10 @@ class HoodieDetail extends Component {
     this.state = {
       hoodie: this.props.route.params.Hoodie,
       images: this.props.route.params.Hoodie.gambar,
+      jumlah: '',
+      ukuran: '',
+      keterangan: '',
+      uid: '',
     };
   }
 
@@ -35,9 +40,32 @@ class HoodieDetail extends Component {
     this.props.dispatch(getDetailCatHoodie(hoodie.cathoodies));
   }
 
+  masukKeranjang = () => {
+    const {jumlah, ukuran, keterangan} = this.state;
+
+    getData('user').then(res => {
+      if (res) {
+        //simpan uid dari localStorage ke state
+        this.setState({
+          uid: res.uid,
+        });
+        //validasi form
+        if (jumlah && ukuran) {
+          //hubungkan ke action (KeranjangAction)
+          //this.props.dispatch(masukKeranjang(this.state));
+        } else {
+          Alert.alert('Error', 'Jumlah & Ukuran harus diisi');
+        }
+      } else {
+        Alert.alert('Error', 'Silahkan login terlebih dahulu');
+        this.props.navigation.replace('Login');
+      }
+    });
+  };
+
   render() {
     const {navigation, getDetailCatHoodieResult} = this.props;
-    const {hoodie, images} = this.state;
+    const {hoodie, images, jumlah, ukuran, keterangan} = this.state;
     return (
       <View style={styles.page}>
         <View style={styles.button}>
@@ -79,18 +107,31 @@ class HoodieDetail extends Component {
               </View>
               <Text style={styles.stok}>Jumlah Stok : {hoodie.stok}</Text>
               <View style={styles.wrapperInputan}>
+                <Inputan
+                  label="Jumlah"
+                  width={responsiveWidth(120)}
+                  height={responsiveHeight(43)}
+                  fontSize={RFValue(20, heightMobileUI)}
+                  keyboardType="number-pad"
+                  value={jumlah}
+                  onChangeText={jumlah => this.setState({jumlah})}
+                />
                 <Pilihan
                   label="Pilih Ukuran"
                   width={responsiveWidth(160)}
                   height={responsiveHeight(40)}
                   fontSize={RFValue(20, heightMobileUI)}
                   datas={hoodie.ukuran}
+                  selectedValue={ukuran}
+                  onValueChange={ukuran => this.setState({ukuran})}
                 />
               </View>
               <Inputan
                 label="Keterangan"
                 textarea
                 fontSize={RFValue(22, heightMobileUI)}
+                value={keterangan}
+                onChangeText={keterangan => this.setState({keterangan})}
               />
               <Jarak height={20} />
               <Button
@@ -99,6 +140,7 @@ class HoodieDetail extends Component {
                 icon="cart-white"
                 padding={responsiveHeight(18)}
                 fontSize={18}
+                onPress={() => this.masukKeranjang()}
               />
             </View>
             <Jarak height={30} />
