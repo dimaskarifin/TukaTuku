@@ -20,6 +20,7 @@ import {
 } from '../../components';
 import {connect} from 'react-redux';
 import {getDetailCatHoodie} from '../../actions/CatHoodie';
+import {masukKeranjang} from '../../actions/KeranjangAction';
 
 class HoodieDetail extends Component {
   constructor(props) {
@@ -40,9 +41,19 @@ class HoodieDetail extends Component {
     this.props.dispatch(getDetailCatHoodie(hoodie.cathoodies));
   }
 
+  componentDidUpdate(prevProps) {
+    const {saveKeranjangResult} = this.props;
+
+    if (
+      saveKeranjangResult &&
+      prevProps.saveKeranjangResult !== saveKeranjangResult
+    ) {
+      this.props.navigation.navigate('Keranjang');
+    }
+  }
+
   masukKeranjang = () => {
     const {jumlah, ukuran, keterangan} = this.state;
-
     getData('user').then(res => {
       if (res) {
         //simpan uid dari localStorage ke state
@@ -52,7 +63,7 @@ class HoodieDetail extends Component {
         //validasi form
         if (jumlah && ukuran) {
           //hubungkan ke action (KeranjangAction)
-          //this.props.dispatch(masukKeranjang(this.state));
+          this.props.dispatch(masukKeranjang(this.state));
         } else {
           Alert.alert('Error', 'Jumlah & Ukuran harus diisi');
         }
@@ -64,7 +75,8 @@ class HoodieDetail extends Component {
   };
 
   render() {
-    const {navigation, getDetailCatHoodieResult} = this.props;
+    const {navigation, getDetailCatHoodieResult, saveKeranjangLoading} =
+      this.props;
     const {hoodie, images, jumlah, ukuran, keterangan} = this.state;
     return (
       <View style={styles.page}>
@@ -141,6 +153,7 @@ class HoodieDetail extends Component {
                 padding={responsiveHeight(18)}
                 fontSize={18}
                 onPress={() => this.masukKeranjang()}
+                loading={saveKeranjangLoading}
               />
             </View>
             <Jarak height={30} />
@@ -153,6 +166,10 @@ class HoodieDetail extends Component {
 
 const mapStateToProps = state => ({
   getDetailCatHoodieResult: state.CatHoodieReducer.getDetailCatHoodieResult,
+
+  saveKeranjangLoading: state.KeranjangReducer.saveKeranjangLoading,
+  saveKeranjangResult: state.KeranjangReducer.saveKeranjangResult,
+  saveKeranjangError: state.KeranjangReducer.saveKeranjangError,
 });
 
 export default connect(mapStateToProps, null)(HoodieDetail);

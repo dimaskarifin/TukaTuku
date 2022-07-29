@@ -50,7 +50,12 @@ class Home extends Component {
               </Text>
               <ListHoodies navigation={navigation} />
               <Jarak height={10} />
-              <Button title="Lihat Semua" type="text" padding={7} />
+              <Button
+                title="Lihat Semua"
+                type="text"
+                padding={7}
+                onPress={() => this.props.navigation.navigate('ListHoodie')}
+              />
             </View>
             <Jarak height={20} />
           </ScrollView>

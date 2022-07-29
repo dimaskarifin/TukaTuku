@@ -2,14 +2,14 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {colors, fonts, responsiveHeight, responsiveWidth} from '../../../utils';
 
-const CardAlamat = ({profile}) => {
+const CardAlamat = ({alamat, provinsi, kota, navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Alamat : </Text>
-      <Text style={styles.alamat}>{profile.alamat}</Text>
-      <Text style={styles.alamat}>Kota/Kab: {profile.kota}</Text>
-      <Text style={styles.alamat}>Provinsi: {profile.provinsi}</Text>
-      <TouchableOpacity>
+      <Text style={styles.alamat}>{alamat}</Text>
+      <Text style={styles.alamat}>{kota}</Text>
+      <Text style={styles.alamat}>Provinsi : {provinsi}</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
         <Text style={styles.ubatAlamat}>Ubah Alamat</Text>
       </TouchableOpacity>
     </View>

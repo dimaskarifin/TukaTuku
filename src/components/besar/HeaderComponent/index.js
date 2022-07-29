@@ -1,10 +1,16 @@
 import {Text, StyleSheet, View, TextInput} from 'react-native';
 import React, {Component} from 'react';
-import {colors, responsiveHeight, responsiveWidth} from '../../../utils';
+import {
+  colors,
+  responsiveHeight,
+  responsiveWidth,
+  getData,
+} from '../../../utils';
 import {IconSearch} from '../../../assets';
 import {Button, Jarak} from '../../kecil';
 import {saveKeywordHoodie} from '../../../actions/HoodieAction';
 import {connect} from 'react-redux';
+import {getListKeranjang} from '../../../actions/HoodieAction';
 
 class HeaderComponent extends Component {
   constructor(props) {
@@ -13,6 +19,14 @@ class HeaderComponent extends Component {
     this.state = {
       search: '',
     };
+  }
+  componentDidMount() {
+    getData('user').then(res => {
+      if (res) {
+        //jika user sudah login
+        this.props.dispatch(getListKeranjang(res.uid));
+      }
+    });
   }
 
   selesaiCari = () => {
@@ -35,7 +49,12 @@ class HeaderComponent extends Component {
 
   render() {
     const {search} = this.state;
-    const {navigation} = this.props;
+    const {navigation, getListKeranjangResult} = this.props;
+
+    let totalKeranjang;
+    if (getListKeranjangResult) {
+      totalKeranjang = Object.keys(getListKeranjangResult.pesanans).length;
+    }
     return (
       <View>
         <View style={styles.wrapperHeader}>
@@ -53,7 +72,7 @@ class HeaderComponent extends Component {
           <Jarak width={10} />
           <Button
             icon="cart"
-            totalKeranjang={4}
+            totalKeranjang={totalKeranjang}
             padding={12}
             onPress={() => navigation.navigate('Keranjang')}
           />
@@ -63,7 +82,11 @@ class HeaderComponent extends Component {
   }
 }
 
-export default connect()(HeaderComponent);
+const mapStateToProps = state => ({
+  getListKeranjangResult: state.KeranjangReducer.getListKeranjangResult,
+});
+
+export default connect(mapStateToProps, null)(HeaderComponent);
 
 const styles = StyleSheet.create({
   wrapperHeader: {

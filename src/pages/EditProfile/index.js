@@ -78,8 +78,8 @@ class EditProfile extends Component {
   };
 
   onSubmit = () => {
-    const {nama, alamat, nohp, provinsi, kota} = this.state;
-    if (nama && nohp && alamat && provinsi && kota) {
+    const {nama, alamat, nohp, provinsi, kota, avatar} = this.state;
+    if (nama && nohp && alamat && provinsi && kota && avatar) {
       //dispatch update
       this.props.dispatch(updateProfile(this.state));
     } else {

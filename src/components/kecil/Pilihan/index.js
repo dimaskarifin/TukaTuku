@@ -40,6 +40,10 @@ const Pilihan = ({
                   key={item.city_id}
                 />
               );
+            } else if (label == 'Pilih Ekpedisi') {
+              return (
+                <Picker.Item label={item.label} value={item} key={item.id} />
+              );
             } else {
               return <Picker.Item label={item} value={item} key={index} />;
             }

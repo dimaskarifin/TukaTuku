@@ -1,7 +1,7 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {IconBack, IconCart} from '../../../assets';
-import {colors} from '../../../utils';
+import {colors, fonts} from '../../../utils';
 import TextOnly from './TextOnly';
 import TextIcon from './TextIcon';
 import ButtonLoading from './ButtonLoading';
@@ -66,7 +66,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textNotif: {
-    fontSize: 10,
+    fontSize: 11,
     color: 'white',
+    fontFamily: fonts.primary.regular,
   },
 });

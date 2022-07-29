@@ -113,6 +113,8 @@ export const getKotaDetail = kota_id => {
 };
 
 export const postOngkir = (data, ekspedisi) => {
+  console.log('Data: ', data);
+  console.log('Ekspedisi: ', ekspedisi);
   return dispatch => {
     dispatchLoading(dispatch, POST_ONGKIR);
 

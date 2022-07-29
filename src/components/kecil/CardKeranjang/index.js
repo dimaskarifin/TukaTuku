@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {
   colors,
@@ -9,13 +9,22 @@ import {
 } from '../../../utils';
 import {IconTrash} from '../../../assets';
 import Jarak from '../Jarak';
+import {connect} from 'react-redux';
+import {deleteKeranjang} from '../../../actions/KeranjangAction';
 
-const CardKeranjang = ({keranjang}) => {
+const CardKeranjang = ({keranjang, keranjangUtama, id, dispatch}) => {
+  const hapusKeranjang = () => {
+    dispatch(deleteKeranjang(id, keranjangUtama, keranjang));
+  };
+
   return (
     <View style={styles.container}>
-      <Image source={keranjang.product.gambar[0]} style={styles.picture} />
+      <Image
+        source={{uri: keranjang.product.gambar[0]}}
+        style={styles.picture}
+      />
       <View style={styles.desc}>
-        <Text style={styles.nama}>{keranjang.product.name}</Text>
+        <Text style={styles.nama}>{keranjang.product.nama}</Text>
         <Text style={styles.text}>
           Rp {numberWithCommas(keranjang.product.harga)}
         </Text>
@@ -35,14 +44,14 @@ const CardKeranjang = ({keranjang}) => {
         <Text style={styles.textBold}>Keterangan : </Text>
         <Text style={styles.text}>{keranjang.keterangan}</Text>
       </View>
-      <View style={styles.trash}>
+      <TouchableOpacity style={styles.trash} onPress={() => hapusKeranjang()}>
         <IconTrash />
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
 
-export default CardKeranjang;
+export default connect()(CardKeranjang);
 
 const styles = StyleSheet.create({
   container: {

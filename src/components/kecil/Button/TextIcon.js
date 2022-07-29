@@ -11,7 +11,15 @@ import {colors, fonts, heightMobileUI} from '../../../utils';
 import Jarak from '../Jarak';
 import {RFValue} from 'react-native-responsive-fontsize';
 
-const TextIcon = ({icon, padding, type, onPress, title, fontSize}) => {
+const TextIcon = ({
+  icon,
+  padding,
+  type,
+  onPress,
+  title,
+  fontSize,
+  disabled,
+}) => {
   const Icon = () => {
     if (icon === 'cart') {
       return <IconCart />;
@@ -27,7 +35,9 @@ const TextIcon = ({icon, padding, type, onPress, title, fontSize}) => {
     return <IconCart />;
   };
   return (
-    <TouchableOpacity style={styles.container(padding)} onPress={onPress}>
+    <TouchableOpacity
+      style={styles.container(padding, disabled)}
+      onPress={onPress}>
       <Icon />
       <Jarak width={10} />
       <Text style={styles.text(fontSize)}>{title}</Text>
@@ -38,8 +48,8 @@ const TextIcon = ({icon, padding, type, onPress, title, fontSize}) => {
 export default TextIcon;
 
 const styles = StyleSheet.create({
-  container: padding => ({
-    backgroundColor: colors.primary,
+  container: (padding, disabled) => ({
+    backgroundColor: disabled ? colors.grey : colors.primary,
     padding: padding,
     borderRadius: 5,
     flexDirection: 'row',
