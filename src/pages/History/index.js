@@ -3,8 +3,9 @@ import {StyleSheet, View} from 'react-native';
 import {ListHistory} from '../../components';
 import {dummyPesanans} from '../../data';
 import {colors} from '../../utils';
+import {connect} from 'react-redux';
 
-export default class History extends Component {
+class History extends Component {
   constructor(props) {
     super(props);
 
@@ -22,6 +23,8 @@ export default class History extends Component {
     );
   }
 }
+
+export default connect()(History);
 
 const styles = StyleSheet.create({
   pages: {

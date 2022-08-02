@@ -14,6 +14,7 @@ import {
   Login,
   Register1,
   Register2,
+  Midtrans,
 } from '../pages';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomNavigator} from '../components';
@@ -88,6 +89,11 @@ const Router = () => {
         name="Register2"
         component={Register2}
         options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Midtrans"
+        component={Midtrans}
+        options={{title: 'Lanjutkan Pembayaran'}}
       />
     </Stack.Navigator>
   );

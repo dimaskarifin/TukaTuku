@@ -11,6 +11,7 @@ import History from './History';
 import Login from './Login';
 import Register1 from './Register/Register1';
 import Register2 from './Register/Register2';
+import Midtrans from './Midtrans';
 
 export {
   Home,
@@ -26,4 +27,5 @@ export {
   Login,
   Register1,
   Register2,
+  Midtrans,
 };

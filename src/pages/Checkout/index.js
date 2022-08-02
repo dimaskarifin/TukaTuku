@@ -1,4 +1,4 @@
-import {Text, StyleSheet, View} from 'react-native';
+import {Text, StyleSheet, View, Alert} from 'react-native';
 import React, {Component} from 'react';
 import {
   colors,
@@ -14,6 +14,7 @@ import {Button, CardAlamat, Jarak, Pilihan} from '../../components';
 import {couriers} from '../../data';
 import {connect} from 'react-redux';
 import {getKotaDetail, postOngkir} from '../../actions/RajaOngkirAction';
+import {snapTransactions} from '../../actions/PaymentAction';
 
 class Checkout extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class Checkout extends Component {
       kota: '',
       provinsi: '',
       alamat: '',
+      date: new Date().getTime(),
     };
   }
 
@@ -38,7 +40,8 @@ class Checkout extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {getKotaDetailResult, ongkirResult} = this.props;
+    const {getKotaDetailResult, ongkirResult, snapTransactionsResult} =
+      this.props;
 
     if (
       getKotaDetailResult &&
@@ -54,6 +57,19 @@ class Checkout extends Component {
         ongkir: ongkirResult.cost[0].value,
         estimasi: ongkirResult.cost[0].etd,
       });
+    }
+
+    if (
+      snapTransactionsResult &&
+      prevProps.snapTransactionsResult !== snapTransactionsResult
+    ) {
+      const params = {
+        url: snapTransactionsResult.redirect_url,
+        ongkir: this.state.ongkir,
+        estimasi: this.state.estimasi,
+        order_id: 'ORDER-' + this.state.date + '-' + this.state.profile.uid,
+      };
+      this.props.navigation.navigate('Midtrans', params);
     }
   }
 
@@ -82,6 +98,34 @@ class Checkout extends Component {
     }
   };
 
+  bayarCheckout = () => {
+    const {totalHarga, ongkir, profile, date} = this.state;
+
+    const data = {
+      transaction_details: {
+        order_id: 'ORDER-' + date + '-' + profile.uid,
+        gross_amount: parseInt(totalHarga + ongkir),
+      },
+      credit_card: {
+        secure: true,
+      },
+      customer_details: {
+        first_name: profile.nama,
+        email: profile.email,
+        phone: profile.nohp,
+      },
+      expiry: {
+        unit: 'minutes',
+        duration: 10,
+      },
+    };
+    if (!ongkir == 0) {
+      this.props.dispatch(snapTransactions(data));
+    } else {
+      Alert.alert('Error', 'Silahkan Ongkir Dipilih Terlebih Dahulu');
+    }
+  };
+
   render() {
     const {
       ekspedisi,
@@ -94,7 +138,7 @@ class Checkout extends Component {
       ongkir,
       estimasi,
     } = this.state;
-    const {navigation} = this.props;
+    const {navigation, snapTransactionsLoading} = this.props;
     return (
       <View style={styles.page}>
         <View style={styles.isi}>
@@ -146,7 +190,8 @@ class Checkout extends Component {
             fontSize={18}
             padding={responsiveHeight(15)}
             icon="cart-white"
-            onPress={() => this.props.navigation.navigate('Checkout')}
+            onPress={() => this.bayarCheckout()}
+            loading={snapTransactionsLoading}
           />
         </View>
       </View>
@@ -160,6 +205,9 @@ const mapStateToProps = state => ({
   getKotaDetailError: state.RajaOngkirReducer.getKotaDetailError,
 
   ongkirResult: state.RajaOngkirReducer.ongkirResult,
+
+  snapTransactionsResult: state.PaymentReducer.snapTransactionsResult,
+  snapTransactionsLoading: state.PaymentReducer.snapTransactionsLoading,
 });
 
 export default connect(mapStateToProps, null)(Checkout);
