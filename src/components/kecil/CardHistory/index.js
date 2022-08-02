@@ -8,27 +8,34 @@ import {
   responsiveWidth,
 } from '../../../utils';
 import Jarak from '../Jarak';
+import {connect} from 'react-redux';
 
 const CardHistory = ({pesanan}) => {
+  const history = pesanan.pesanans;
   return (
     <View style={styles.container}>
-      <Text style={styles.tanggal}>{pesanan.tanggalPesanan}</Text>
-      {pesanan.pesanans.map((history, index) => {
+      <Text style={styles.tanggal}>{pesanan.tanggal}</Text>
+      {Object.keys(history).map((key, index) => {
         return (
           <View key={index} style={styles.history}>
             <Text style={styles.textBold}>{index + 1}.</Text>
-            <Image source={history.product.gambar[0]} style={styles.jersey} />
+            <Image
+              source={{uri: history[key].product.gambar[0]}}
+              style={styles.jersey}
+            />
             <View style={styles.desc}>
-              <Text style={styles.nama}>{history.product.name}</Text>
+              <Text style={styles.nama}>{history[key].product.nama}</Text>
               <Text style={styles.harga}>
-                Rp. {numberWithCommas(history.product.harga)}
+                Rp. {numberWithCommas(history[key].product.harga)}
               </Text>
 
               <Jarak height={10} />
 
-              <Text style={styles.textBold}>Pesan : {history.jumlahPesan}</Text>
               <Text style={styles.textBold}>
-                Total Harga : Rp. {numberWithCommas(history.totalHarga)}
+                Pesan : {history[key].jumlahPesan}
+              </Text>
+              <Text style={styles.textBold}>
+                Total Harga : Rp. {numberWithCommas(history[key].totalHarga)}
               </Text>
             </View>
           </View>
@@ -40,15 +47,19 @@ const CardHistory = ({pesanan}) => {
       <View style={styles.footer}>
         <View style={styles.label}>
           <Text style={styles.textBlue}>Status :</Text>
-          <Text style={styles.textBlue}>Ongkir (2-3 Hari) :</Text>
+          <Text style={styles.textBlue}>
+            Ongkir ({pesanan.estimasi} Hari) :
+          </Text>
           <Text style={styles.textBlue}>Total Harga :</Text>
         </View>
 
         <View style={styles.label}>
           <Text style={styles.textBlue}>{pesanan.status}</Text>
-          <Text style={styles.textBlue}>Rp. 15.000</Text>
-          <Text style={styles.textBlue}>
-            Rp. {numberWithCommas(pesanan.totalHarga + 15000)}
+          <Text style={styles.textHarga}>
+            Rp {numberWithCommas(pesanan.ongkir)}
+          </Text>
+          <Text style={styles.textHarga}>
+            Rp {numberWithCommas(pesanan.totalHarga + pesanan.ongkir)}
           </Text>
         </View>
       </View>
@@ -56,7 +67,7 @@ const CardHistory = ({pesanan}) => {
   );
 };
 
-export default CardHistory;
+export default connect()(CardHistory);
 
 const styles = StyleSheet.create({
   container: {
@@ -120,6 +131,12 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary.bold,
     color: colors.primary,
     textTransform: 'uppercase',
+    textAlign: 'right',
+  },
+  textHarga: {
+    fontSize: 14,
+    fontFamily: fonts.primary.bold,
+    color: colors.primary,
     textAlign: 'right',
   },
 });

@@ -8,6 +8,7 @@ import HoodieReducer from './hoodie';
 import KeranjangReducer from './keranjang';
 import PaymentReducer from './payment';
 import PesananReducer from './pesanan';
+import HistoryReducer from './history';
 
 const rootReducer = combineReducers({
   RajaOngkirReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   KeranjangReducer,
   PaymentReducer,
   PesananReducer,
+  HistoryReducer,
 });
 
 export default rootReducer;

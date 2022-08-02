@@ -1,24 +1,28 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ListHistory} from '../../components';
-import {dummyPesanans} from '../../data';
-import {colors} from '../../utils';
+import {colors, getData} from '../../utils';
 import {connect} from 'react-redux';
+import {getListHistory} from '../../actions/HistoryAction';
 
 class History extends Component {
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    getData('user').then(res => {
+      const data = res;
 
-    this.state = {
-      pesanans: dummyPesanans,
-    };
+      if (!data) {
+        this.props.navigation.replace('Login');
+      } else {
+        this.props.dispatch(getListHistory(data.uid));
+      }
+    });
   }
 
   render() {
-    const {pesanans} = this.state;
+    const {navigation} = this.props;
     return (
       <View style={styles.pages}>
-        <ListHistory pesanans={pesanans} />
+        <ListHistory navigation={navigation} />
       </View>
     );
   }
