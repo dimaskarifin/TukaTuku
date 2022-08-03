@@ -1,5 +1,12 @@
-import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import React, {Component} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
 import {
   colors,
   fonts,
@@ -9,65 +16,97 @@ import {
 } from '../../../utils';
 import Jarak from '../Jarak';
 import {connect} from 'react-redux';
+import {updateStatus} from '../../../actions/HistoryAction';
 
-const CardHistory = ({pesanan}) => {
-  const history = pesanan.pesanans;
-  return (
-    <View style={styles.container}>
-      <Text style={styles.tanggal}>{pesanan.tanggal}</Text>
-      {Object.keys(history).map((key, index) => {
-        return (
-          <View key={index} style={styles.history}>
-            <Text style={styles.textBold}>{index + 1}.</Text>
-            <Image
-              source={{uri: history[key].product.gambar[0]}}
-              style={styles.jersey}
-            />
-            <View style={styles.desc}>
-              <Text style={styles.nama}>{history[key].product.nama}</Text>
-              <Text style={styles.harga}>
-                Rp. {numberWithCommas(history[key].product.harga)}
-              </Text>
+class CardHistory extends Component {
+  componentDidMount() {
+    const {pesanan} = this.props;
+    this.props.dispatch(updateStatus(pesanan.order_id));
+  }
 
-              <Jarak height={10} />
+  masukMidtrans = () => {
+    const {pesanan} = this.props;
+    if (pesanan.status === 'lunas') {
+      Alert.alert('Information', 'Transaksi Berhasil');
+    } else if (pesanan.status === 'expire') {
+      Alert.alert(
+        'expired',
+        'Pesanan Sudah Habis Waktu Bayar Silahkan Pesan Kembali',
+      );
+    } else {
+      this.props.navigation.navigate('Midtrans', {url: pesanan.url});
+    }
+  };
 
-              <Text style={styles.textBold}>
-                Pesan : {history[key].jumlahPesan}
-              </Text>
-              <Text style={styles.textBold}>
-                Total Harga : Rp. {numberWithCommas(history[key].totalHarga)}
-              </Text>
+  render() {
+    const {pesanan, updateStatusLoading} = this.props;
+    const history = pesanan.pesanans;
+
+    return (
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() => this.masukMidtrans()}>
+        <Text style={styles.tanggal}>{pesanan.tanggal}</Text>
+        {Object.keys(history).map((key, index) => {
+          return (
+            <View key={index} style={styles.history}>
+              <Text style={styles.textBold}>{index + 1}.</Text>
+              <Image
+                source={{uri: history[key].product.gambar[0]}}
+                style={styles.jersey}
+              />
+              <View style={styles.desc}>
+                <Text style={styles.nama}>{history[key].product.nama}</Text>
+                <Text style={styles.harga}>
+                  Rp. {numberWithCommas(history[key].product.harga)}
+                </Text>
+
+                <Jarak height={10} />
+
+                <Text style={styles.textBold}>
+                  Pesan : {history[key].jumlahPesan}
+                </Text>
+                <Text style={styles.textBold}>
+                  Total Harga : Rp. {numberWithCommas(history[key].totalHarga)}
+                </Text>
+              </View>
             </View>
+          );
+        })}
+
+        <Jarak height={10} />
+
+        <View style={styles.footer}>
+          <View style={styles.label}>
+            <Text style={styles.textBlue}>Status :</Text>
+            <Text style={styles.textBlue}>
+              Ongkir ({pesanan.estimasi} Hari) :
+            </Text>
+            <Text style={styles.textBlue}>Total Harga :</Text>
           </View>
-        );
-      })}
 
-      <Jarak height={10} />
-
-      <View style={styles.footer}>
-        <View style={styles.label}>
-          <Text style={styles.textBlue}>Status :</Text>
-          <Text style={styles.textBlue}>
-            Ongkir ({pesanan.estimasi} Hari) :
-          </Text>
-          <Text style={styles.textBlue}>Total Harga :</Text>
+          <View style={styles.label}>
+            <Text style={styles.textBlue}>
+              {updateStatusLoading ? 'Loading' : pesanan.status}
+            </Text>
+            <Text style={styles.textHarga}>
+              Rp {numberWithCommas(pesanan.ongkir)}
+            </Text>
+            <Text style={styles.textHarga}>
+              Rp {numberWithCommas(pesanan.totalHarga + pesanan.ongkir)}
+            </Text>
+          </View>
         </View>
+      </TouchableOpacity>
+    );
+  }
+}
 
-        <View style={styles.label}>
-          <Text style={styles.textBlue}>{pesanan.status}</Text>
-          <Text style={styles.textHarga}>
-            Rp {numberWithCommas(pesanan.ongkir)}
-          </Text>
-          <Text style={styles.textHarga}>
-            Rp {numberWithCommas(pesanan.totalHarga + pesanan.ongkir)}
-          </Text>
-        </View>
-      </View>
-    </View>
-  );
-};
+const mapStateToProps = state => ({
+  updateStatusLoading: state.HistoryReducer.updateStatusLoading,
+});
 
-export default connect()(CardHistory);
+export default connect(mapStateToProps, null)(CardHistory);
 
 const styles = StyleSheet.create({
   container: {

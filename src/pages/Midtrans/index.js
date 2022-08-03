@@ -11,6 +11,11 @@ export class Midtrans extends Component {
       this.props.dispatch(updatePesanan(this.props.route.params));
     }
   }
+  onMessage = data => {
+    if (data.nativeEvent.data === 'Selesai') {
+      this.props.navigation.replace('History');
+    }
+  };
   render() {
     const {updatePesananLoading} = this.props;
     return (
@@ -20,7 +25,10 @@ export class Midtrans extends Component {
             <ActivityIndicator size="large" color={colors.primary} />
           </View>
         ) : (
-          <WebView source={{uri: this.props.route.params.url}} />
+          <WebView
+            source={{uri: this.props.route.params.url}}
+            onMessage={this.onMessage}
+          />
         )}
       </>
     );
