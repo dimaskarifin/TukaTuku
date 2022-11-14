@@ -1,4 +1,10 @@
-import {StyleSheet, Image, TouchableOpacity, View} from 'react-native';
+import {
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  View,
+  ScrollView,
+} from 'react-native';
 import React from 'react';
 import {colors, responsiveHeight, responsiveWidth} from '../../../utils';
 import {connect} from 'react-redux';

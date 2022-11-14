@@ -27,10 +27,10 @@ class CardHistory extends Component {
   masukMidtrans = () => {
     const {pesanan} = this.props;
     if (pesanan.status === 'lunas') {
-      Alert.alert('Information', 'Transaksi Berhasil');
+      Alert.alert('Informasi', 'Transaksi Berhasil');
     } else if (pesanan.status === 'expire') {
       Alert.alert(
-        'expired',
+        'Informasi',
         'Pesanan Sudah Habis Waktu Bayar Silahkan Pesan Kembali',
       );
     } else {
