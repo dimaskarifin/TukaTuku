@@ -58,18 +58,24 @@ class CardHistory extends Component {
                 style={styles.jersey}
               />
               <View style={styles.desc}>
-                <Text style={styles.nama}>{history[key].product.nama}</Text>
+                <Text style={styles.nama}>{item.product.nama}</Text>
                 <Text style={styles.harga}>
-                  Rp. {numberWithCommas(history[key].product.harga)}
+                  Rp. {numberWithCommas(item.product.harga)}
                 </Text>
 
                 <Jarak height={10} />
 
                 <Text style={styles.textBold}>
-                  Pesan : {history[key].jumlahPesan}
+                  Pesan : <Text style={styles.textRegular}>{item.jumlahPesan}</Text>
                 </Text>
                 <Text style={styles.textBold}>
-                  Total Harga : Rp. {numberWithCommas(history[key].totalHarga)}
+                  Ukuran : <Text style={styles.textRegular}>{item.ukuran}</Text>
+                </Text>
+                <Text style={styles.textBold}>
+                  Layanan : <Text style={styles.textRegular}>{item.keterangan || '-'}</Text>
+                </Text>
+                <Text style={styles.textBold}>
+                  Total Harga : Rp. {numberWithCommas(item.totalHarga)}
                 </Text>
               </View>
             </View>
@@ -183,5 +189,10 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary.bold,
     color: colors.primary,
     textAlign: 'right',
+  },
+  textRegular: {
+    fontSize: 12,
+    fontFamily: fonts.primary.regular,
+    color: colors.black,
   },
 });
