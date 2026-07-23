@@ -17,6 +17,56 @@ import {DefaultImage} from '../../assets';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {updateProfile} from '../../actions/ProfileAction';
 
+const fallbackProvinces = [
+  { province_id: '9', province: 'DKI Jakarta' },
+  { province_id: '10', province: 'Jawa Barat' },
+  { province_id: '11', province: 'Jawa Tengah' },
+  { province_id: '15', province: 'Jawa Timur' },
+  { province_id: '5', province: 'DI Yogyakarta' },
+  { province_id: '2', province: 'Bali' },
+  { province_id: '3', province: 'Banten' }
+];
+
+const fallbackCities = {
+  '9': [
+    { city_id: '151', type: 'Kota', city_name: 'Jakarta Barat' },
+    { city_id: '152', type: 'Kota', city_name: 'Jakarta Pusat' },
+    { city_id: '153', type: 'Kota', city_name: 'Jakarta Selatan' },
+    { city_id: '154', type: 'Kota', city_name: 'Jakarta Timur' },
+    { city_id: '155', type: 'Kota', city_name: 'Jakarta Utara' }
+  ],
+  '10': [
+    { city_id: '54', type: 'Kota', city_name: 'Bandung' },
+    { city_id: '55', type: 'Kabupaten', city_name: 'Bandung' },
+    { city_id: '78', type: 'Kota', city_name: 'Bogor' },
+    { city_id: '79', type: 'Kabupaten', city_name: 'Bogor' },
+    { city_id: '115', type: 'Kota', city_name: 'Depok' },
+    { city_id: '57', type: 'Kota', city_name: 'Bekasi' },
+    { city_id: '58', type: 'Kabupaten', city_name: 'Bekasi' }
+  ],
+  '11': [
+    { city_id: '399', type: 'Kota', city_name: 'Semarang' },
+    { city_id: '427', type: 'Kota', city_name: 'Surakarta (Solo)' }
+  ],
+  '15': [
+    { city_id: '444', type: 'Kota', city_name: 'Surabaya' },
+    { city_id: '256', type: 'Kota', city_name: 'Malang' }
+  ],
+  '5': [
+    { city_id: '501', type: 'Kota', city_name: 'Yogyakarta' },
+    { city_id: '419', type: 'Kabupaten', city_name: 'Sleman' },
+    { city_id: '39', type: 'Kabupaten', city_name: 'Bantul' }
+  ],
+  '2': [
+    { city_id: '114', type: 'Kota', city_name: 'Denpasar' }
+  ],
+  '3': [
+    { city_id: '455', type: 'Kota', city_name: 'Tangerang' },
+    { city_id: '456', type: 'Kabupaten', city_name: 'Tangerang' },
+    { city_id: '457', type: 'Kota', city_name: 'Tangerang Selatan' }
+  ]
+};
+
 class EditProfile extends Component {
   constructor(props) {
     super(props);
@@ -112,6 +162,14 @@ class EditProfile extends Component {
 
     const {getKotaResult, getProvinsiResult, updateProfileLoading} = this.props;
 
+    const provinces = (getProvinsiResult && getProvinsiResult.length > 0)
+      ? getProvinsiResult
+      : fallbackProvinces;
+
+    const cities = (getKotaResult && getKotaResult.length > 0)
+      ? getKotaResult
+      : (provinsi ? (fallbackCities[provinsi] || []) : []);
+
     return (
       <View style={styles.page}>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -141,13 +199,13 @@ class EditProfile extends Component {
 
           <Pilihan
             label="Provinsi"
-            datas={getProvinsiResult ? getProvinsiResult : []}
+            datas={provinces}
             selectedValue={provinsi}
             onValueChange={provinsi => this.ubahProvinsi(provinsi)}
           />
           <Pilihan
             label="Kota/Kab"
-            datas={getKotaResult ? getKotaResult : []}
+            datas={cities}
             selectedValue={kota}
             onValueChange={kota => this.setState({kota: kota})}
           />

@@ -6,6 +6,7 @@ import {
   numberWithCommas,
   responsiveHeight,
   responsiveWidth,
+  mapImage,
 } from '../../../utils';
 import {IconTrash} from '../../../assets';
 import Jarak from '../Jarak';
@@ -20,7 +21,7 @@ const CardKeranjang = ({keranjang, keranjangUtama, id, dispatch}) => {
   return (
     <View style={styles.container}>
       <Image
-        source={{uri: keranjang.product.gambar[0]}}
+        source={mapImage(keranjang.product.gambar[0])}
         style={styles.picture}
       />
       <View style={styles.desc}>
@@ -41,7 +42,7 @@ const CardKeranjang = ({keranjang, keranjangUtama, id, dispatch}) => {
             Rp {numberWithCommas(keranjang.totalHarga)}
           </Text>
         </Text>
-        <Text style={styles.textBold}>Keterangan : </Text>
+        <Text style={styles.textBold}>Layanan : </Text>
         <Text style={styles.text}>{keranjang.keterangan}</Text>
       </View>
       <TouchableOpacity style={styles.trash} onPress={() => hapusKeranjang()}>

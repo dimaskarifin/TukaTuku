@@ -37,9 +37,11 @@ const TextIcon = ({
   return (
     <TouchableOpacity
       style={styles.container(padding, disabled)}
-      onPress={onPress}>
+      onPress={onPress}
+      disabled={disabled}>
       <Icon />
       <Jarak width={10} />
+
       <Text style={styles.text(fontSize)}>{title}</Text>
     </TouchableOpacity>
   );

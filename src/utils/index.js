@@ -4,3 +4,4 @@ export * from './fonts';
 export * from './constant';
 export * from './dispatch';
 export * from './localStorage';
+export * from './imageMapper';

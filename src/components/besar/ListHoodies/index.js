@@ -14,9 +14,14 @@ const ListHoodies = ({
     <View style={styles.container}>
       {getListHoodieResult ? (
         Object.keys(getListHoodieResult).map(key => {
+          const item = getListHoodieResult[key];
+          if (item.stok !== undefined && item.stok <= 0) {
+            return null;
+          }
+          const hoodieWithId = { ...item, id: key };
           return (
             <CardHoodie
-              Hoodie={getListHoodieResult[key]}
+              Hoodie={hoodieWithId}
               key={key}
               navigation={navigation}
             />

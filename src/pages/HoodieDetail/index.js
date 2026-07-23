@@ -53,13 +53,23 @@ class HoodieDetail extends Component {
   }
 
   masukKeranjang = () => {
-    const {jumlah, ukuran, keterangan} = this.state;
+    const {jumlah, ukuran, keterangan, hoodie} = this.state;
     getData('user').then(res => {
       if (res) {
         //simpan uid dari localStorage ke state
         this.setState({
           uid: res.uid,
         });
+
+        const availableStok = typeof hoodie.stok === 'object'
+          ? (hoodie.stok[ukuran] || 0)
+          : (hoodie.stok !== undefined ? hoodie.stok : 0);
+
+        if (Number(jumlah) > Number(availableStok)) {
+          Alert.alert('Error', 'Jumlah pesanan melebihi stok yang tersedia (' + availableStok + ')');
+          return;
+        }
+
         //validasi form
         if (jumlah && ukuran) {
           //hubungkan ke action (KeranjangAction)
@@ -78,6 +88,10 @@ class HoodieDetail extends Component {
     const {navigation, getDetailCatHoodieResult, saveKeranjangLoading} =
       this.props;
     const {hoodie, images, jumlah, ukuran, keterangan} = this.state;
+    const availableStok = typeof hoodie.stok === 'object'
+      ? (hoodie.stok[ukuran] || 0)
+      : (hoodie.stok !== undefined ? hoodie.stok : 0);
+    const isOutOfStock = availableStok <= 0;
     return (
       <View style={styles.page}>
         <View style={styles.button}>
@@ -117,7 +131,7 @@ class HoodieDetail extends Component {
                   {hoodie.deskripsi}
                 </Text>
               </View>
-              <Text style={styles.stok}>Jumlah Stok : {hoodie.stok}</Text>
+              <Text style={styles.stok}>Jumlah Stok : {availableStok}</Text>
               <View style={styles.wrapperInputan}>
                 <Inputan
                   label="Jumlah"
@@ -138,22 +152,23 @@ class HoodieDetail extends Component {
                   onValueChange={ukuran => this.setState({ukuran})}
                 />
               </View>
-              <Inputan
-                label="Keterangan"
-                textarea
-                fontSize={RFValue(22, heightMobileUI)}
-                value={keterangan}
-                onChangeText={keterangan => this.setState({keterangan})}
+              <Pilihan
+                label="Pilih Layanan"
+                fontSize={RFValue(20, heightMobileUI)}
+                datas={['Tanpa Layanan', 'Cuci Baju', 'Pembersihan Noda', 'Cuci & Pembersihan Noda']}
+                selectedValue={keterangan}
+                onValueChange={keterangan => this.setState({keterangan})}
               />
               <Jarak height={20} />
               <Button
-                title="Masuk Keranjang"
+                title={isOutOfStock ? 'Stok Habis' : 'Masuk Keranjang'}
                 type="textIcon"
                 icon="cart-white"
                 padding={responsiveHeight(18)}
                 fontSize={18}
                 onPress={() => this.masukKeranjang()}
                 loading={saveKeranjangLoading}
+                disabled={isOutOfStock}
               />
             </View>
             <Jarak height={30} />

@@ -6,7 +6,7 @@ import {
   ScrollView,
 } from 'react-native';
 import React from 'react';
-import {colors, responsiveHeight, responsiveWidth} from '../../../utils';
+import {colors, responsiveHeight, responsiveWidth, mapImage} from '../../../utils';
 import {connect} from 'react-redux';
 import {getHoodieByCatHoodie} from '../../../actions/HoodieAction';
 
@@ -22,7 +22,7 @@ const CardCatHoodie = ({catHoodies, navigation, id, dispatch}) => {
     <TouchableOpacity
       style={styles.container}
       onPress={() => toHoodieByCatHoodie(id, catHoodies.catHoodie)}>
-      <Image source={{uri: catHoodies.image}} style={styles.logo} />
+      <Image source={mapImage(catHoodies.image)} style={styles.logo} />
     </TouchableOpacity>
   );
 };

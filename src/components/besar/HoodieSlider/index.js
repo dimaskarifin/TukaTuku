@@ -2,7 +2,7 @@ import {Text, StyleSheet, View, Modal} from 'react-native';
 import React, {Component} from 'react';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import {SliderBox} from 'react-native-image-slider-box';
-import {responsiveHeight, responsiveWidth} from '../../../utils';
+import {responsiveHeight, responsiveWidth, mapImage} from '../../../utils';
 
 export default class HoodieSlider extends Component {
   constructor(props) {
@@ -14,13 +14,14 @@ export default class HoodieSlider extends Component {
     };
   }
   clickPreview = index => {
+    const mappedImages = this.props.images.map(img => mapImage(img));
     this.setState({
       openImage: true,
       previewImage: [
         {
-          url: this.props.images[index],
+          url: '',
           props: {
-            source: this.props.images[index],
+            source: mappedImages[index],
           },
         },
       ],
@@ -29,10 +30,11 @@ export default class HoodieSlider extends Component {
   render() {
     const {images} = this.props;
     const {openImage, previewImage} = this.state;
+    const mappedImages = images.map(img => mapImage(img));
     return (
       <View>
         <SliderBox
-          images={images}
+          images={mappedImages}
           circleLoop
           sliderBoxHeight={responsiveHeight(330)}
           ImageComponentStyle={styles.hoodie}

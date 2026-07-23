@@ -6,6 +6,7 @@ import {
   numberWithCommas,
   responsiveHeight,
   responsiveWidth,
+  mapImage,
 } from '../../../utils';
 
 const CardHoodie = ({Hoodie, navigation}) => {
@@ -14,7 +15,7 @@ const CardHoodie = ({Hoodie, navigation}) => {
       <TouchableOpacity
         style={styles.card}
         onPress={() => navigation.navigate('HoodieDetail', {Hoodie})}>
-        <Image source={{uri: Hoodie.gambar[0]}} style={styles.gambar} />
+        <Image source={mapImage(Hoodie.gambar[0])} style={styles.gambar} />
         <Text style={styles.text}>{Hoodie.nama}</Text>
         <Text style={styles.textHarga}>
           Rp {numberWithCommas(Hoodie.harga)}

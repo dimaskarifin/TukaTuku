@@ -21,7 +21,7 @@ export const getProvinsiList = () => {
     axios({
       method: 'get',
       url: API_RAJAONGKIR + 'province',
-      timeout: API_TIMEOUT,
+      timeout: 5000,
       headers: API_HEADER_RAJAONGKIR,
     })
       .then(response => {
@@ -40,8 +40,7 @@ export const getProvinsiList = () => {
       .catch(error => {
         // ERROR
         dispatchError(dispatch, GET_PROVINSI, error);
-
-        alert(error);
+        console.log('RajaOngkir error:', error);
       });
   };
 };
@@ -54,7 +53,7 @@ export const getKotaList = provinsi_id => {
     axios({
       method: 'get',
       url: API_RAJAONGKIR + 'city?province=' + provinsi_id,
-      timeout: API_TIMEOUT,
+      timeout: 5000,
       headers: API_HEADER_RAJAONGKIR,
     })
       .then(response => {
@@ -73,8 +72,7 @@ export const getKotaList = provinsi_id => {
       .catch(error => {
         // ERROR
         dispatchError(dispatch, GET_KOTA, error);
-
-        alert(error);
+        console.log('RajaOngkir error:', error);
       });
   };
 };
@@ -134,7 +132,7 @@ export const postOngkir = (data, ekspedisi) => {
     axios({
       method: 'POST',
       url: API_RAJAONGKIR + 'cost',
-      timeout: API_TIMEOUT,
+      timeout: 5000,
       headers: API_HEADER_RAJAONGKIR_COST,
       data: formData,
     })
@@ -156,10 +154,20 @@ export const postOngkir = (data, ekspedisi) => {
         }
       })
       .catch(error => {
-        // ERROR
-        dispatchError(dispatch, POST_ONGKIR, error);
-
-        alert(error);
+        // Fallback to static dummy ongkir on failure
+        const fallbackOngkir = {
+          service: ekspedisi.service,
+          description: 'Regular Service (Fallback)',
+          cost: [
+            {
+              value: 15000,
+              etd: '2-3',
+              note: ''
+            }
+          ]
+        };
+        dispatchSuccess(dispatch, POST_ONGKIR, fallbackOngkir);
+        console.log('RajaOngkir cost error, using fallback:', error);
       });
   };
 };

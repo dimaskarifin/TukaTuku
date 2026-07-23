@@ -13,6 +13,7 @@ import {
   numberWithCommas,
   responsiveHeight,
   responsiveWidth,
+  mapImage,
 } from '../../../utils';
 import Jarak from '../Jarak';
 import {connect} from 'react-redux';
@@ -48,11 +49,12 @@ class CardHistory extends Component {
         onPress={() => this.masukMidtrans()}>
         <Text style={styles.tanggal}>{pesanan.tanggal}</Text>
         {Object.keys(history).map((key, index) => {
+          const item = history[key];
           return (
             <View key={index} style={styles.history}>
               <Text style={styles.textBold}>{index + 1}.</Text>
               <Image
-                source={{uri: history[key].product.gambar[0]}}
+                source={mapImage(item.product.gambar[0])}
                 style={styles.jersey}
               />
               <View style={styles.desc}>
@@ -79,6 +81,7 @@ class CardHistory extends Component {
         <View style={styles.footer}>
           <View style={styles.label}>
             <Text style={styles.textBlue}>Status :</Text>
+            {pesanan.noResi && <Text style={styles.textBlue}>No. Resi :</Text>}
             <Text style={styles.textBlue}>
               Ongkir ({pesanan.estimasi} Hari) :
             </Text>
@@ -89,6 +92,9 @@ class CardHistory extends Component {
             <Text style={styles.textBlue}>
               {updateStatusLoading ? 'Loading' : pesanan.status}
             </Text>
+            {pesanan.noResi && (
+              <Text style={styles.textHarga}>{pesanan.noResi}</Text>
+            )}
             <Text style={styles.textHarga}>
               Rp {numberWithCommas(pesanan.ongkir)}
             </Text>
