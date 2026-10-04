@@ -42,32 +42,48 @@ export const updatePesanan = params => {
                   if (pesanans) {
                     Object.keys(pesanans).forEach(key => {
                       const pesanan = pesanans[key];
-                      const productId = pesanan.product.id;
-                      const jumlahPesan = parseInt(pesanan.jumlahPesan || 0);
-                      const ukuran = pesanan.ukuran;
+                      const productId = pesanan?.product?.id;
+                      const jumlahPesan = parseInt(
+                        pesanan?.jumlahPesan || 0,
+                        10,
+                      );
+                      const ukuran = pesanan?.ukuran;
 
-                      if (productId) {
-                        FIREBASE.database()
-                          .ref('hoodies/' + productId)
-                          .once('value', snapshot => {
-                            if (snapshot.val()) {
-                              const productData = snapshot.val();
-                              if (typeof productData.stok === 'object') {
-                                const currentSizeStok = parseInt(productData.stok[ukuran] || 0);
-                                const newSizeStok = Math.max(0, currentSizeStok - jumlahPesan);
-                                FIREBASE.database()
-                                  .ref('hoodies/' + productId + '/stok')
-                                  .update({ [ukuran]: newSizeStok });
-                              } else {
-                                const currentStok = parseInt(productData.stok || 0);
-                                const newStok = Math.max(0, currentStok - jumlahPesan);
-                                FIREBASE.database()
-                                  .ref('hoodies/' + productId)
-                                  .update({ stok: newStok });
-                              }
-                            }
-                          });
+                      if (!productId || !ukuran || jumlahPesan <= 0) {
+                        return;
                       }
+
+                      FIREBASE.database()
+                        .ref('hoodies/' + productId)
+                        .once('value', snapshot => {
+                          if (snapshot.val()) {
+                            const productData = snapshot.val();
+
+                            if (typeof productData.stok === 'object') {
+                              const currentSizeStok = Number(
+                                productData.stok?.[ukuran] ?? 0,
+                              );
+                              const newSizeStok = Math.max(
+                                0,
+                                currentSizeStok - jumlahPesan,
+                              );
+
+                              FIREBASE.database()
+                                .ref('hoodies/' + productId + '/stok')
+                                .update({[ukuran]: newSizeStok});
+                            } else {
+                              const currentStok = Number(productData.stok || 0);
+                              const newStok = Math.max(
+                                0,
+                                currentStok - jumlahPesan,
+                              );
+
+                              FIREBASE.database()
+                                .ref('hoodies/' + productId)
+                                .update({stok: newStok});
+                            }
+                          }
+                        });
                     });
                   }
 

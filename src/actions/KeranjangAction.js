@@ -67,9 +67,11 @@ export const masukKeranjang = data => {
 
 export const masukKeranjangDetail = data => {
   return dispatch => {
+    const jumlahPesan = parseInt(data.jumlah || 0);
+
     const pesanans = {
       product: data.hoodie,
-      jumlahPesan: data.jumlah,
+      jumlahPesan,
       totalHarga: parseInt(data.jumlah) * parseInt(data.hoodie.harga),
       totalBerat: parseInt(data.jumlah) * parseFloat(data.hoodie.berat),
       keterangan: data.keterangan,
